@@ -1,8 +1,8 @@
 # Site settings
-title: Developer Blog!
+title: Developer blogging is a great way to think clearly!
 email: nsipplswezey@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
-  Blogging is a great way to think clearly
+  This is where I stop to put down working ideas.
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://nsipplswezey.github.io/" # the base hostname & protocol for your site
 twitter_username: null
