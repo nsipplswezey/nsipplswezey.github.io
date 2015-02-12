@@ -7,7 +7,7 @@ categories: technical posts
 
 In the previous blog post, I showed an iFrame with a canvas element in it, that listens for mobile touch events. It was pulled from a great [MDN tutorial](https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Touch_events)
 
-Let's try to reposition that canvas element, so that instead of having it in the top left of the webview, we could have it positioned on the bottom right of our webview.
+Let's try to reposition that canvas element so that instead of having it in the top left of the webview, we could have it positioned on the bottom right of our webview.
 
 We can reposition any HTML element using CSS.
 
