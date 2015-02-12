@@ -5,11 +5,11 @@ date:   2015-02-10 19:15:37
 categories: meta posts
 ---
 
-If a great technical blog post is [short, reproducible and visual](http://nsipplswezey.github.io/meta/posts/2015/02/09/great-technical-posts.html) then what tools to we have to introduce reproducibility and visibility into our blogging?
+If a great technical blog post is [short, reproducible and visual](http://nsipplswezey.github.io/meta/posts/2015/02/09/great-technical-posts.html) then what tools do we have to introduce reproducibility and visibility into our blogging?
 
-Let's explore iFrames. An iFrame is an inline frame used to embed another document within the current HTML document.
+Let's explore iFrames. An iFrame is an html element, which creates an inline frame used to embed another document within the current HTML document.
 
-I think of them simply as a webpage inside a webpage.
+I think of them simply as a web-view inside a web-view.
 
 How do we use an iFrame in a technical blog post?
 
