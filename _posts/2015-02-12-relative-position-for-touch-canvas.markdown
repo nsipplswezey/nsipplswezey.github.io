@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Repositioning a canvas with touch listeners"
-date:   2015-02-09 19:15:37
+date:   2015-02-12 19:15:37
 categories: technical posts
 ---
 
