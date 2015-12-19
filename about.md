@@ -4,10 +4,8 @@ title: About Nick Sippl-Swezey
 permalink: /about/
 ---
 
-I'm a software engineering currently at Hack Reactor.
+Software engineer.
 
-I love viceral tactile experiences with technology.
+Currently: rapid prototyper.
+Previously: clinical trial data visializer @UCSF, project manager @novamodeler, hacker in residence @hackreactor.
 
-I love explorable explanations of complex topics.
-
-I love data driven insights.
