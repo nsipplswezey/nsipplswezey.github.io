@@ -130,7 +130,9 @@ Nodal uses a specific design pattern for managing our database as we develop our
 Migrations offer a consistent and convenient way to alter your database schema over time. You can think of each migration as being a new version of the database. This is an idea borrowed from Rails, and you can read an in-depth article on migrations here: [here](http://edgeguides.rubyonrails.org/active_record_migrations.html)
 
 For our purposes, all we need to know is that our Nodal generated
+
     ./db/migrations/2016040820210712__create_tweet.js
+    
 which extends the Nodal.Migrations class and implements two methods that interface with our Postgres database. These methods are:
 
     // ./db/migrations/2016...UTCTimestamp.js
