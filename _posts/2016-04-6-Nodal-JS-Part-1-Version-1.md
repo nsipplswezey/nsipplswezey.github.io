@@ -441,5 +441,8 @@ As a sneak peak here's how we generate our user model, using the same g:model co
 
 Follow me on twitter for part 2 and part 3.
 
+## The Origional Screen-Cast
+
+[![Nodal 0.6 Intro (Part 1): Creating a Node.js Twitter Clone](http://img.youtube.com/vi/IxBXkFbUqtk/maxresdefault.jpg)](http://www.youtube.com/watch?v=IxBXkFbUqtk)
 
 <a name="footnote1">1</a>: This is a sample footnote.
