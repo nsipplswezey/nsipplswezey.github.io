@@ -6,7 +6,6 @@ permalink: /about/
 
 Software engineer.
 
-Currently: rapid prototyper.
+Currently: using react-native to build mobile apps that know what they're looking at.
 
-Previously: clinical trial data visializer @UCSF, project manager @novamodeler, hacker in residence @hackreactor.
-
+Previously: computational modeling for research and education @UCBerkeley, clinical trials for lasers and vision @UCSF, product and engineering @novamodeler, hacker in residence @hackreactor.
