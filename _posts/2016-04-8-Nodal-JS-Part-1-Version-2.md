@@ -471,8 +471,10 @@ Models have a close relationship with two other concepts: schema and tables. A s
 
 <a name="footnote5">5</a>:
 At this point two questions might come to mind:
-What is db/main.js actually doing?
-What's Nodal.my.Schema.models.Tweet and when and where is it created?
+
+* What is db/main.js actually doing?
+
+* What's Nodal.my.Schema.models.Tweet and when and where is it created?
 
 These are both good questions. You can find an answer to question #1 by looking in db/main.js.
 You can find an answer you question #2 at Nodal's [docs for the .setSchema method!](http://www.nodaljs.com/static/docs/index.html#Model.setSchema)
@@ -488,7 +490,7 @@ Nodal is also transparent and explicit enough in it's methods and its design pat
 <a name="footnote6">6</a>:
 Question: When we migrate and rollback, do we lose all the data contained in our database in those prior migrations.
 
-Answer: Yes. db:migrate and db:rollback seem to just invoke the up() and down() methods, which mean dropping and recreating tables. While it would be cool if Nodal migrations implemented up() and down() in some way that that your application db history remained immutable between migrations, it seems that a db:rollback drops the table of the most recent migration, and a db:migrate recreates that table from scratch.
+Answer: Yes. db:migrate and db:rollback seem to just invoke the up() and down() methods, which mean dropping and recreating tables. It would be cool if Nodal migrations implemented up() and down() in some clever immutable way, such that your application db history remained consistent between migrations. But so far as I know, it seems that a db:rollback drops the table of the most recent migration, and a db:migrate recreates that table from scratch.
 
 Questions: When we db:create or db:prepare, do we lose all the data contained in our database prior to that create or prepare?
 
