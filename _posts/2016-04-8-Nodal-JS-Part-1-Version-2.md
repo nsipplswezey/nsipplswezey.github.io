@@ -461,7 +461,7 @@ As a sneak peak here's how we generate our user model, using the same g:model co
 
 ...which will generate a new migration that contains our user table, add default validation for usernames and password inputs and download bcrypt for password encryption.
 
-If you like Nodal, [star and follow Nodal on github](httpss://github.com/keithwhor/nodal) and follow Nodal's creator [@keithwhor](https://twitter.com/keithwhor). If you have comments or suggestions on this blog post, lemme know [@nsipplswezey](https://twitter.com/nsipplswezey). Follow along for forthcoming part 2 and part 3.
+If you like Nodal, [star and follow Nodal on github](https://github.com/keithwhor/nodal) and follow Nodal's creator [@keithwhor](https://twitter.com/keithwhor). If you have comments or suggestions on this blog post, lemme know [@nsipplswezey](https://twitter.com/nsipplswezey). Follow along for forthcoming part 2 and part 3.
 
 Thanks to Keith Horwood for creating Nodal and reading a draft of this.
 
