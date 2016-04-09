@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Nodal Part 1; Version 0.0.1
+title: Dog Food; Screencast + Technical Blog Post
 ---
 
 {% include video.html %}
@@ -8,11 +8,12 @@ title: Nodal Part 1; Version 0.0.1
 ## Getting Started with Nodal:
 
 ### A node.js Framework + Screen-cast + Technical Blog Post
-This blog post is 1 of 3, written to pair with a 3 part screencast by the creator of the Nodal framework Keith Horwood. It's a test of a mixed-media technical blog format, pairing screen-cast video content with static technical blog content. See that little check box in the right margin? Use it to toggle the accompanying screen-cast on which this blog post is based. If you're curious about this mixed text-video transcription technical blog idea, you can see my motivations [in this post](http://nsipplswezey.github.io/2016/04/07/Pairing-Screencasts-and-Text.html).
+**This post was the first version of a mixed-media technical blog format idea.
+You can find the next (better) version of this Nodal screen-cast + technical blog [here](http://nsipplswezey.github.io/2016/04/08/Nodal-JS-Part-1-Version-2.html)**
 
-I've dog-fooded this post by following along myself, and have a follow-up post on the results of this experiment [here](http://nsipplswezey.github.io/2016/04/07/Pairing-Screencasts-and-Text-Results.html). Since this is a technical blog, and not a product distribution channel, I'm leaving this first version up, as a reference to the iterative development of this idea.
+I dog-fooded this version and have a follow-up post on the results of the experiment [here](http://nsipplswezey.github.io/2016/04/07/Pairing-Screencasts-and-Text-Results.html). Since this is a technical blog, and not a product distribution channel, I'm leaving this first version up, as a reference to the iterative development of this idea.
 
-You can find Version 2 of this Nodal screen-cast + technical blog [here]()
+If you still want to cruise this post, it follows a screencast by the creator of the Nodal framework Keith Horwood. See that little check box in the right margin? Use it to toggle the accompanying screen-cast on which this blog post is based. If you're curious about this mixed text-video transcription technical blog idea, you can see my motivations [in this post](http://nsipplswezey.github.io/2016/04/07/Pairing-Screencasts-and-Text.html).
 
 ### Nodal
 Nodal is a node.js webserver and framework designed to make it easy to get a node.js server up and running. It's built with:
