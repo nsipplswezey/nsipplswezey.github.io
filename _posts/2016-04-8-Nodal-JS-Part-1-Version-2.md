@@ -22,7 +22,7 @@ Nodal is a node.js web server and framework designed to make it easy to get a no
 We're going to use Nodal to create an API for a Twitter clone. In part 1 our API we'll handle tweets. In part 2 and 3 we'll handle user creation and authentication.
 
 ## Install
-We'll start with a fresh global install of Nodal to make Nodal generators available at the command line. If you want to see alternatives to global installation of node packages, and the rationale for that approach, [you can read more here](http://www.joezimjs.com/javascript/no-more-global-npm-packages/).
+We'll start with a fresh global install of Nodal to make Nodal generators available at the command line. If you want to see alternatives to global installation of node packages, and the rationale for that approach, [you can read more here](https://www.joezimjs.com/javascript/no-more-global-npm-packages/).
 
     sudo npm install nodal -g
 
@@ -127,12 +127,12 @@ You'll see that the Nodal generator logs the files it creates in your console.
 
 Nodal uses a specific design pattern for managing our database as we develop our application. This pattern is built on an abstraction called a migration.
 
-Migrations offer a consistent and convenient way to alter your database schema over time. You can think of each migration as being a new version of the database. This is an idea borrowed from Rails, and you can read an in-depth article on migrations here: [here](http://edgeguides.rubyonrails.org/active_record_migrations.html)
+Migrations offer a consistent and convenient way to alter your database schema over time. You can think of each migration as being a new version of the database. This is an idea borrowed from Rails, and you can read an in-depth article on migrations here: [here](https://edgeguides.rubyonrails.org/active_record_migrations.html)
 
 For our purposes, all we need to know is that our Nodal generated
 
     ./db/migrations/2016040820210712__create_tweet.js
-    
+
 which extends the Nodal.Migrations class and implements two methods that interface with our Postgres database. These methods are:
 
     // ./db/migrations/2016...UTCTimestamp.js
@@ -461,21 +461,21 @@ As a sneak peak here's how we generate our user model, using the same g:model co
 
 ...which will generate a new migration that contains our user table, add default validation for usernames and password inputs and download bcrypt for password encryption.
 
-If you like Nodal, [star and follow Nodal on github](https://github.com/keithwhor/nodal) and follow Nodal's creator [@keithwhor](https://twitter.com/keithwhor). If you have comments or suggestions on this blog post, lemme know [@nsipplswezey](https://twitter.com/nsipplswezey). Follow along for forthcoming part 2 and part 3.
+If you like Nodal, [star and follow Nodal on github](httpss://github.com/keithwhor/nodal) and follow Nodal's creator [@keithwhor](https://twitter.com/keithwhor). If you have comments or suggestions on this blog post, lemme know [@nsipplswezey](https://twitter.com/nsipplswezey). Follow along for forthcoming part 2 and part 3.
 
 Thanks to Keith Horwood for creating Nodal and reading a draft of this.
 
 
 ## The Origional Screen-Cast
 
-[![Nodal 0.6 Intro (Part 1): Creating a Node.js Twitter Clone](http://img.youtube.com/vi/IxBXkFbUqtk/maxresdefault.jpg)](http://www.youtube.com/watch?v=IxBXkFbUqtk)
+[![Nodal 0.6 Intro (Part 1): Creating a Node.js Twitter Clone](https://img.youtube.com/vi/IxBXkFbUqtk/maxresdefault.jpg)](https://www.youtube.com/watch?v=IxBXkFbUqtk)
 
 # Footnotes
 
-<a name="footnote1">1</a>: Throughout this post I use footnotes to point to implementation details that might distract you from the important bits of getting up and running with Nodal. These footnotes are intended to assist by demarcating something that can be intentionally ignored until later. This footnote format was based on dog-fooding this mixed screen-cast + technical blog post format, and realizing that the text layer of the blog needed to stay thin, to match the screencast. You can see my motivations for the format in [this post](http://nsipplswezey.github.io/2016/04/07/Pairing-Screencasts-and-Text.html) and my outcomes in [this post](http://nsipplswezey.github.io/2016/04/07/Pairing-Screencasts-and-Text-Results.html)
+<a name="footnote1">1</a>: Throughout this post I use footnotes to point to implementation details that might distract you from the important bits of getting up and running with Nodal. These footnotes are intended to assist by demarcating something that can be intentionally ignored until later. This footnote format was based on dog-fooding this mixed screen-cast + technical blog post format, and realizing that the text layer of the blog needed to stay thin, to match the screencast. You can see my motivations for the format in [this post](https://nsipplswezey.github.io/2016/04/07/Pairing-Screencasts-and-Text.html) and my outcomes in [this post](https://nsipplswezey.github.io/2016/04/07/Pairing-Screencasts-and-Text-Results.html)
 
 <a name="footnote2">2</a>: Need Node version management? I recommend using nvm [based on these instructions](https://facebook.github.io/react-native/docs/getting-started.html#content).
-Need Postgres? I recommend using [Postgres.app](http://postgresapp.com/).
+Need Postgres? I recommend using [Postgres.app](https://postgresapp.com/).
 
 <a name="footnote3">3</a>: If you're looking for a discussion on IIFEs you can see a good and short conversation about it on [Nodal's Show HN discussion page](https://news.ycombinator.com/item?id=10849460).
 
@@ -491,7 +491,7 @@ At this point two questions might come to mind:
 * What's Nodal.my.Schema.models.Tweet and when and where is it created?
 
 These are both good questions. You can find an answer to question #1 by looking in db/main.js.
-You can find an answer you question #2 at Nodal's [docs for the .setSchema method!](http://www.nodaljs.com/static/docs/index.html#Model.setSchema)
+You can find an answer you question #2 at Nodal's [docs for the .setSchema method!](https://www.nodaljs.com/static/docs/index.html#Model.setSchema)
 
 In essence, Nodal.my.Schema.model.Tweets is an object that represents the schema for the model and the table. And it will be generated when we run our migrations. That is it gets created on an invocation of up()!
 
