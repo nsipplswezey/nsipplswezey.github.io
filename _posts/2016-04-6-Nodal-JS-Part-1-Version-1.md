@@ -13,7 +13,7 @@ You can find the next (better) version of this Nodal screen-cast + technical blo
 
 I dog-fooded this version and have a follow-up post on the results of the experiment [here](http://nsipplswezey.github.io/2016/04/07/Pairing-Screencasts-and-Text-Results.html). Since this is a technical blog, and not a product distribution channel, I'm leaving this first version up, as a reference to the iterative development of this idea.
 
-If you still want to cruise this post, it follows a screencast by the creator of the Nodal framework Keith Horwood. See that little check box in the right margin? Use it to toggle the accompanying screen-cast on which this blog post is based. If you're curious about this mixed text-video transcription technical blog idea, you can see my motivations [in this post](http://nsipplswezey.github.io/2016/04/07/Pairing-Screencasts-and-Text.html).
+If you still want to cruise this post, it follows a screencast by the creator of the Nodal framework Keith Horwood. See that little check box in the right margin? Use it to toggle the accompanying screen-cast on which this blog post is based. If you're curious about this mixed text-video transcription technical blog idea, you can see my motivations [in this post](http://nsipplswezey.github.io/2016/04/07/Pairing-Screencasts-and-Text.html).<sup>[1](#footnote1)</sup>
 
 ### Nodal
 Nodal is a node.js webserver and framework designed to make it easy to get a node.js server up and running. It's built with:
@@ -440,3 +440,6 @@ As a sneak peak here's how we generate our user model, using the same g:model co
 ...which will generate a new migration that contains our user table, add default validation for usernames and password inputs and download bcrypt for password encryption.
 
 Follow me on twitter for part 2 and part 3.
+
+
+<a name="footnote1">1</a>: This is a sample footnote.
