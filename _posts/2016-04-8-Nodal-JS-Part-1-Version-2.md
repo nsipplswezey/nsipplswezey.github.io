@@ -8,7 +8,7 @@ title: Nodal Part 1
 ## Getting Started with Nodal:
 
 ### A node.js Framework + Screen-cast + Technical Blog Post
-This is part 1 of 3 posts to be paired with screencasts by Nodal creator Keith Horwood. The primary intention is to improve on the available technical material on the Nodal framework. The secondary purpose is to continue iterating on screencast + blog post format that pairs screen-cast video content with static text, code snippets and images typical of technical blogs. See that little check box floating there in the right margin? Use it to toggle the accompanying screen-cast on which this blog post follows. If you're reading on mobile, the video is embedded at the end of the post. See motivations for this format after getting started with Nodal.<sup>[1](#footnote1)</sup>
+This is part 1 of 3 posts to be paired with screencasts by Nodal creator Keith Horwood. The primary intention is to improve on the available technical material on the Nodal framework. The secondary purpose is to continue iterating on screencast + blog post format that pairs screen-cast video content with static text, code snippets and images typical of technical blogs. See that little check box floating there in the right margin? Use it to toggle the accompanying screen-cast which this blog post follows. If you're reading on mobile, the video is embedded at the end of the post. See motivations for this format after getting started with Nodal.<sup>[1](#footnote1)</sup>
 
 ### Nodal
 Nodal is a node.js web server and framework designed to make it easy to get a node.js server up and running. It's built with:
@@ -434,9 +434,14 @@ Let's double check by sending another DELETE request using the same query string
 
 If we send a GET request to localhost:3000/v1/tweets we'll see that our tweet with ID 7 is gone.
 
+![Delete Two]({{ site.url }}assets/nodal/part1/getAfterDelete.png)
+
 We can also go back through our server log, which is active in the terminal window where we started our nodal server, and we can see the log of the tweet being deleted.
 
-![Delete Two]({{ site.url }}assets/nodal/part1/getAfterDelete.png)
+    DELETE FROM "tweets" WHERE ("id") = ($1) RETURNING *
+    [7]
+    29ms
+
 
 ## That's Enough to Get Started
 
@@ -456,9 +461,14 @@ If you like Nodal, [star and follow Nodal on github](https://github.com/keithwho
 
 Thanks to Keith Horwood for creating Nodal and reading a draft of this.
 
+
+## The Origional Screen-Cast
+
+[![Nodal 0.6 Intro (Part 1): Creating a Node.js Twitter Clone](http://img.youtube.com/vi/IxBXkFbUqtk/maxresdefault.jpg)](http://www.youtube.com/watch?v=IxBXkFbUqtk)
+
 # Footnotes
 
-<a name="footnote1">1</a>: Throughout this post I'll use footnotes to point to implementation details that might distract you from the important bits of getting up and running with Nodal. These footnotes are intended to assist by demarcating something that can be intentionally ignored until later. This footnote format was based on dog-fooding this mixed screen-cast + technical blog post format, and realizing that the text layer of the blog needed to stay thin, to match the screencast. You can see my motivations for the format in [this post](http://nsipplswezey.github.io/2016/04/07/Pairing-Screencasts-and-Text.html) and my outcomes in [this post](http://nsipplswezey.github.io/2016/04/07/Pairing-Screencasts-and-Text-Results.html)
+<a name="footnote1">1</a>: Throughout this post I use footnotes to point to implementation details that might distract you from the important bits of getting up and running with Nodal. These footnotes are intended to assist by demarcating something that can be intentionally ignored until later. This footnote format was based on dog-fooding this mixed screen-cast + technical blog post format, and realizing that the text layer of the blog needed to stay thin, to match the screencast. You can see my motivations for the format in [this post](http://nsipplswezey.github.io/2016/04/07/Pairing-Screencasts-and-Text.html) and my outcomes in [this post](http://nsipplswezey.github.io/2016/04/07/Pairing-Screencasts-and-Text-Results.html)
 
 <a name="footnote2">2</a>: Need Node version management? I recommend using nvm [based on these instructions](https://facebook.github.io/react-native/docs/getting-started.html#content).
 Need Postgres? I recommend using [Postgres.app](http://postgresapp.com/).
