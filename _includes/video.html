@@ -6,13 +6,13 @@
 
 }
 
-.video-toggle{
+#video-toggle{
   position: relative;
   left: 740px;
   top: 80px;
 }
 
-.video-frame {
+#video-frame {
   position:fixed;
   bottom: 50px;
   border-radius: 3px !important;
@@ -37,7 +37,49 @@ iframe {
 </style>
 
 <div class="video-wrapper">
-  <input class="video-toggle" type="checkbox" checked>
-  <iframe class="video-frame" width="740" height="400" src="https://www.youtube.com/embed/IxBXkFbUqtk?feature=player_detailpage&VQ=HD720" frameborder="0" allowfullscreen></iframe>
+  <input id="video-toggle" type="checkbox" checked>
+  <iframe id="video-frame" width="740" height="400" src="https://www.youtube.com/embed/IxBXkFbUqtk?feature=player_detailpage&VQ=HD720" frameborder="0" allowfullscreen></iframe>
 
 </div>
+
+<script>
+
+var metaChar = false;
+var exampleKey = 91;
+var toggleBox = document.getElementById("video-toggle");
+var videoFrame = document.getElementById("video-frame");
+
+document.body.onkeydown = function(event) {
+  var key = event.keyCode || event.which;
+  var keychar = String.fromCharCode(key);
+  if (key == exampleKey) {
+    metaChar = true;
+  }
+  if (key != exampleKey) {
+    if (metaChar) {
+      console.log("Combination of metaKey + " + keychar);
+      metaChar = false;
+
+      if(keychar === "&"){
+        toggleBox.checked = !toggleBox.checked;
+        console.log(videoFrame);
+        videoFrame.contentDocument.body.focus();
+
+      }
+
+    } else {
+      console.log("Key pressed " + key);
+    }
+  }
+}
+
+document.body.onkeyup = function (event) {
+  var key = event.keyCode || event.which;
+
+  if (key == exampleKey) {
+    metaChar = false;
+  }
+}
+
+
+</script>
