@@ -66,9 +66,12 @@ var last;
 function onYouTubeIframeAPIReady() {
 
   player = new YT.Player('player', {
+    'modestbranding': 1,
+    'cc_load_policy': 1,
+    'controls': 0,
     events: {
       'onReady': onPlayerReady,
-      'onStateChange': onPlayerStateChange
+      'onStateChange': onPlayerStateChange,
     }
   });
 }
