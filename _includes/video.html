@@ -79,7 +79,9 @@ function onPlayerReady(event) {
 
 function onPlayerStateChange(event) {
   //console.log('stateChange ' + player.getPlayerState());
-  parent.focus();
+  var frame = player.getIframe();
+  frame.blur();
+  //parent.focus();
 }
 
 
