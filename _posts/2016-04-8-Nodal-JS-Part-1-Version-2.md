@@ -10,7 +10,7 @@ title: Nodal Part 1
 ### A node.js Framework + Screen-cast + Technical Blog Post
 This is part 1 of 3 posts to be paired with screencasts by Nodal creator Keith Horwood. The primary intention is to improve on the available technical material on the Nodal framework. The secondary purpose is to continue iterating on screencast + blog post format that pairs screen-cast video content with static text, code snippets and images typical of technical blogs.
 
-See that little check box floating there in the right margin? Use it to toggle the accompanying screen-cast which this blog post follows. You can also use a single command-↑ to toggle and un-toggle the video, and use the space bar to play and pause the video when it's up. If you're reading on mobile, the video is embedded at the end of the post. See motivations for this format after getting started with Nodal.<sup>[1](#footnote1)</sup>
+See that little check box floating there in the right margin? Use it to toggle the accompanying screen-cast which this blog post follows. **You can also use a single command-↑ to toggle and un-toggle the video, and use the space bar to play and pause the video layer when present.* If you're reading on mobile, the video is embedded at the end of the post. See motivations for this format after getting started with Nodal.<sup>[1](#footnote1)</sup>
 
 ### Nodal
 Nodal is a node.js web server and framework designed to make it easy to get a node.js server up and running. It's built with:
