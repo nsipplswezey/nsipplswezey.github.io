@@ -8,7 +8,9 @@ title: Nodal Part 1
 ## Getting Started with Nodal:
 
 ### A node.js Framework + Screen-cast + Technical Blog Post
-This is part 1 of 3 posts to be paired with screencasts by Nodal creator Keith Horwood. The primary intention is to improve on the available technical material on the Nodal framework. The secondary purpose is to continue iterating on screencast + blog post format that pairs screen-cast video content with static text, code snippets and images typical of technical blogs. See that little check box floating there in the right margin? Use it to toggle the accompanying screen-cast which this blog post follows. If you're reading on mobile, the video is embedded at the end of the post. See motivations for this format after getting started with Nodal.<sup>[1](#footnote1)</sup>
+This is part 1 of 3 posts to be paired with screencasts by Nodal creator Keith Horwood. The primary intention is to improve on the available technical material on the Nodal framework. The secondary purpose is to continue iterating on screencast + blog post format that pairs screen-cast video content with static text, code snippets and images typical of technical blogs.
+
+See that little check box floating there in the right margin? Use it to toggle the accompanying screen-cast which this blog post follows. You can also use a single command-↑ to toggle and un-toggle the video, and use the space bar to play and pause the video when it's up. If you're reading on mobile, the video is embedded at the end of the post. See motivations for this format after getting started with Nodal.<sup>[1](#footnote1)</sup>
 
 ### Nodal
 Nodal is a node.js web server and framework designed to make it easy to get a node.js server up and running. It's built with:
@@ -19,7 +21,7 @@ Nodal is a node.js web server and framework designed to make it easy to get a no
 * a system of command line generators
 * implementation using ES6 idioms and syntax
 
-We're going to use Nodal to create an API for a Twitter clone. In part 1 our API we'll handle tweets. In part 2 and 3 we'll handle user creation and authentication.
+We're going to use Nodal to create an API for a Twitter clone. We'll name it instatweet. In part 1 our API we'll handle tweets. In part 2 and 3 we'll handle user creation and authentication.
 
 ## Install
 We'll start with a fresh global install of Nodal to make Nodal generators available at the command line. If you want to see alternatives to global installation of node packages, and the rationale for that approach, [you can read more here](https://www.joezimjs.com/javascript/no-more-global-npm-packages/).
