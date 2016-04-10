@@ -81,10 +81,12 @@ function onPlayerStateChange(event) {
   //console.log('stateChange ' + player.getPlayerState());
   var frame = player.getIframe();
   //parent.focus();
-  console.log('setTimeout 0 blur frame');
+  console.log('setTimeout 0 blur frame on click');
+
+  frame.onclick(setTimeout(function(){frame.blur()},0););
 
   //setTimeout(function(){window.focus()},100);
-  setTimeout(function(){frame.blur()},0);
+
 
 }
 
