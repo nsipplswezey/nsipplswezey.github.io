@@ -83,7 +83,7 @@ function onPlayerStateChange(event) {
   //parent.focus();
   console.log('setTimeout 0 blur frame on click');
 
-  frame.onclick(setTimeout(function(){frame.blur()},0););
+  frame.onclick = setTimeout(function(){frame.blur()},0);
 
   //setTimeout(function(){window.focus()},100);
 
