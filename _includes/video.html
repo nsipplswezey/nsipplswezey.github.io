@@ -74,22 +74,13 @@ function onYouTubeIframeAPIReady() {
 }
 
 function onPlayerReady(event) {
-  console.log('frame blur on click');
   playerReady = true;
-  var frame = player.getIframe();
-  frame.onclick = setTimeout(function(){frame.blur()},0);
 }
 
 function onPlayerStateChange(event) {
   //console.log('stateChange ' + player.getPlayerState());
-  //var frame = player.getIframe();
-  //parent.focus();
-  console.log('setTimeout 0 blur frame on click');
-
-
-
-  //setTimeout(function(){window.focus()},100);
-  //setTimeout(function(){frame.blur()},0);
+  var frame = player.getIframe();
+  setTimeout(function(){frame.blur()},0);
 
 }
 
