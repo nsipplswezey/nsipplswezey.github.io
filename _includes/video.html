@@ -81,6 +81,7 @@ function onPlayerStateChange(event) {
   //console.log('stateChange ' + player.getPlayerState());
   var frame = player.getIframe();
   parent.focus();
+  console.log('parent focus and click hack');
   document.body.dispatch('click');
 }
 
