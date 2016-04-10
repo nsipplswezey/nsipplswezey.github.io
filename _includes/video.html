@@ -45,7 +45,7 @@ iframe {
 <div class="video-wrapper">
   <input id="video-toggle" type="checkbox" checked>
   <iframe id="player" type="text/html" width="740" height="400"
-    src="https://www.youtube.com/embed/IxBXkFbUqtk?enablejsapi=1&origin=https://nsipplswezey.github.io&modestbranding=1&disablekb=1"
+    src="https://www.youtube.com/embed/IxBXkFbUqtk?enablejsapi=1&origin=https://nsipplswezey.github.io&modestbranding=1&disablekb=1&suggestedQuality=hd720"
     frameborder="0"></iframe>
 </div>
 
@@ -75,10 +75,16 @@ function onYouTubeIframeAPIReady() {
 
 function onPlayerReady(event) {
   playerReady = true;
+  event.target.setPlaybackQuality('hd720');
 }
 
 function onPlayerStateChange(event) {
   //console.log('stateChange ' + player.getPlayerState());
+
+  if (event.data == YT.PlayerState.BUFFERING) {
+    event.target.setPlaybackQuality('hd720');
+  }
+
   var frame = player.getIframe();
   setTimeout(function(){frame.blur()},0);
 
