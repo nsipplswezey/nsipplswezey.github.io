@@ -53,7 +53,9 @@ iframe {
 <script>
 
 var metaChar = false;
-var exampleKey = 91;
+var exampleKeyLeft = 91;
+var exampleKeyRight = 93;
+var exampleKeyFF = 224;
 var toggleBox = document.getElementById("video-toggle");
 var videoFrame = document.getElementById("player");
 
@@ -84,21 +86,24 @@ document.body.onkeydown = function(event) {
   var key = event.keyCode || event.which;
   var keychar = String.fromCharCode(key);
 
+  var metaKey = (key === exampleKeyLeft || key === exampleKeyRight || key === exampleKeyFF)
+  var notMetaKey = (key != exampleKeyLeft && key != exampleKeyRight && key != exampleKeyFF)
+
   if(playerReady){
     var playerState = player.getPlayerState();
   }
 
-  if (key == exampleKey || event.metaKey) {
+  if (metaKey) {
     metaChar = true;
   }
 
-  if (key != exampleKey) {
+  if (notMetaKey) {
     if (metaChar) {
-      //console.log("Combination of metaKey + " + keychar);
       metaChar = false;
-      event.preventDefault();
+
 
       if(keychar === "&"){
+        event.preventDefault();
 
         toggleBox.checked = !toggleBox.checked;
 
@@ -146,8 +151,9 @@ document.body.onkeydown = function(event) {
 
 document.body.onkeyup = function (event) {
   var key = event.keyCode || event.which;
+  var metaKey = (key === exampleKeyLeft || key === exampleKeyRight || key === exampleKeyFF)
 
-  if (key == exampleKey) {
+  if (metaKey) {
     metaChar = false;
   }
 }
