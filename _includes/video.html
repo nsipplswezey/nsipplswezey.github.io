@@ -82,7 +82,14 @@ function onPlayerStateChange(event) {
   var frame = player.getIframe();
   parent.focus();
   console.log('parent focus and click hack');
-  document.body.dispatch('click');
+
+  var event = new MouseEvent('click', {
+    'view': window,
+    'bubbles': true,
+    'cancelable': true
+  });
+
+  document.body.dispatchEvent('click');
 }
 
 
