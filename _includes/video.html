@@ -3,6 +3,9 @@
 .video-wrapper{
   position: fixed;
   border-radius: 3px;
+  padding: 0px;
+  height: 0px;
+  width: 0px;
 
 }
 
@@ -12,17 +15,12 @@
   top: 80px;
 }
 
-#video-frame {
-  position:fixed;
-  bottom: 50px;
-  border-radius: 3px !important;
-
-}
-
 #player {
-  position:fixed;
+  display: inline-block;
+  position: fixed;
   bottom: 50px;
   border-radius: 3px !important;
+  padding: 0px;
 
 }
 
@@ -39,6 +37,7 @@ iframe {
   transition: opacity 0.25s ease;
   border-radius: 3px !important;
   box-shadow: 0px 20px 80px black;
+  padding: 0px;
 }
 
 </style>
@@ -89,7 +88,7 @@ document.body.onkeydown = function(event) {
     var playerState = player.getPlayerState();
   }
 
-  if (key == exampleKey) {
+  if (key == exampleKey || event.metaKey) {
     metaChar = true;
   }
 
@@ -97,9 +96,10 @@ document.body.onkeydown = function(event) {
     if (metaChar) {
       //console.log("Combination of metaKey + " + keychar);
       metaChar = false;
+      event.preventDefault();
 
       if(keychar === "&"){
-        event.preventDefault();
+
         toggleBox.checked = !toggleBox.checked;
 
       }
