@@ -80,16 +80,12 @@ function onPlayerReady(event) {
 function onPlayerStateChange(event) {
   //console.log('stateChange ' + player.getPlayerState());
   var frame = player.getIframe();
-  parent.focus();
-  console.log('parent focus and click hack');
+  //parent.focus();
+  console.log('setTimeout');
 
-  var event = new MouseEvent('click', {
-    'view': window,
-    'bubbles': true,
-    'cancelable': true
-  });
+  setTimeout(function(){window.focus()},100);
+  setTimeout(function(){frame.blur()},100);
 
-  document.body.dispatchEvent(event);
 }
 
 
