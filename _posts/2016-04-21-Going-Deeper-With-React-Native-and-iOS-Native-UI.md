@@ -12,11 +12,11 @@ But they're really sparse on two deeper topics:
 1. How to approach triggering native UI.
 2. How to pass values from native UI interactions back to the JS side.
 
-Ultimately, triggering native iOS UI and passing values from native UI interactions back to RN requires two additional steps that aren't covered in the RN documentation. These were the missing steps in building this iOS9 CNContactPicker API I put together(ADD LINK WHEN DONE).
+Ultimately, triggering native iOS UI and passing values from native UI interactions back to RN requires two additional steps that aren't covered in the RN documentation. These were the missing steps in building this iOS9 CNContactPicker API I put together(https://github.com/nsipplswezey/react-native-iOS9-contact-picker).
 
-Step 1: Put your JS callbacks/promises (RCTSenderResponseBlocks) in a mutable array that can be passed between your Objective-C methods
+**Step 1: Put your JS callbacks/promises (RCTSenderResponseBlocks) in a mutable array that can be passed between your Objective-C methods**
 
-```
+```objective-c
   //RCTNativeUIViewManager.m
   @implementation RCTNativeUIViewManager.m
   {
@@ -30,7 +30,7 @@ Step 1: Put your JS callbacks/promises (RCTSenderResponseBlocks) in a mutable ar
     [_callbacks addObject:callback];
 ```
 
-Step 2: Walk to the current top view controller before presenting your new native UI view controller.
+**Step 2: Walk to the current top view controller before presenting your new native UI view controller.**
 
 ```objective-c
   UIViewController *presentingController = RCTKeyWindow().rootViewController;
