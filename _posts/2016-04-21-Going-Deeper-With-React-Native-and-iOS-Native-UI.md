@@ -14,6 +14,10 @@ But they're really sparse on two deeper topics:
 
 Ultimately, triggering native iOS UI and passing values from native UI interactions back to RN requires two additional steps that aren't covered in the RN documentation. These were the missing steps in building this iOS9 CNContactPicker API I put together(https://github.com/nsipplswezey/react-native-iOS9-contact-picker).
 
+And a demo gif of the outcome:
+
+![Demo Gif](https://nsipplswezey.github.io/assets/anim.gif)
+
 **Step 1: Put your JS callbacks/promises (RCTSenderResponseBlocks) in a mutable array that can be passed between your Objective-C methods**
 
 ```objective-c
