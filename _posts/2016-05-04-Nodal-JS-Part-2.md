@@ -701,3 +701,7 @@ By this point, we've gotten quite a bit quicker at navigating our Nodal server f
 While reading this blog probably took more than 20 minutes, and certainly more than that if you followed along with your own Nodal project, the screen-cast time for this content was about 11 minutes.
 
 Keep that in mind as we continue to part 3 when we look at oauth and access tokens.
+
+## The Origional Screen-Cast
+
+[![Nodal 0.6 Intro (Part 2): Users, API interfaces and Model Relationships Clone](https://img.youtube.com/vi/cQW4tgQsV_I/maxresdefault.jpg)](https://www.youtube.com/watch?v=cQW4tgQsV_I)
