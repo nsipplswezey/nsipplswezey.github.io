@@ -30,7 +30,7 @@ We'll start with a fresh global install of Nodal to make Nodal generators availa
 
 ## What are we using for this screen-cast + blog post
 
-The [Atom](https://atom.io/) text editor, Node version 4.2.4 and Postgres.<sup>[2](#footnote2)</sup>
+The [Atom](https://atom.io/) text editor, Node version 4.2.4 and [Postgres](http://postgresapp.com/).<sup>[2](#footnote2)</sup>
 
 ## Create a new project
 
