@@ -3226,7 +3226,7 @@ var main = {
 	images_of_change: null,
   current_ioc_index: 0,
 	current_ioc_id: null,
-	url_for_ioc_json: "/api/v1/gallery_images",
+	url_for_ioc_json: "https://nsipplswezey.github.io/api/v1/gallery_images",
 	lat: "image_map_latitude",
 	lon: "image_map_longitude",
 
