@@ -1,0 +1,139 @@
+---
+layout: post
+title: Day 3
+---
+
+## Goal?
+
+Build [liquid.vote/nyc]("https://liquid.vote/nyc").
+
+What's [liquid.vote]("https://liquid.vote/")?
+
+See [liquid.vote/sf]("https://liquid.vote/sf").
+
+Oh [liquid.vote/sf]("https://liquid.vote/sf") is broken? They're rebuilding the new version of liquid.vote? 
+
+And it's ![under construction](https://motherboard-images.vice.com/content-images/contentimage/26327/1444070256569233.gif)
+
+
+## A Clone Is Born
+
+Oops. No data. Gotta seed production. A clone is *being* born.
+
+We scrape. We write JSON. We seed our production server with JSON.
+
+We start simple. Scrape all the bill names on the page. Go to the agenda. Highlight a bill name. Highlight it's link. Get a css selector. Write a node script that does the same.
+
+```
+const fs = require("fs")
+
+const jsdom = require("jsdom");
+const { JSDOM } = jsdom;
+
+
+const options = {};
+JSDOM.fromURL("http://legistar.council.nyc.gov/MeetingDetail.aspx?ID=563540&GUID=26A3BD82-86F3-47FE-A13E-AAC05219B54E",options)
+
+.then(dom => {
+
+
+  //get agenda date
+  let dateSelector = "#ctl00_ContentPlaceHolder1_lblDate"
+  let dateElement = dom.window.document.querySelector(dateSelector);
+  let agendaDate = dateElement.textContent
+
+  //select all times
+  let tableSelector = "#ctl00_ContentPlaceHolder1_gridMain_ctl00 > tbody"
+  let table = dom.window.document.querySelector(tableSelector)
+  //iterate through all rows
+
+  let rows = Array.from(table.children);
+
+  let billData = rows
+    .map((element) => {
+      let atag = element.children[0].children[0]
+      let billid = atag.text;
+      let source_doc = atag.href;
+
+      let bill = {
+        billid:billid,
+        source_doc:source_doc,
+        date:agendaDate
+        };
+
+      return bill;
+  })
+    .filter((bill) => bill.source_doc )
+
+  return billData
+})
+```
+
+Not bad. `billid`, `source_doc` and `date`.
+
+## Then What?
+
+Love promises.
+
+```
+.then(bills => {
+
+  //now that we have item URLs, we navigate to them
+  //then we can generate a bunch of promises?
+  //and chain process them
+
+  let agendaDate = bills[0].date;
+
+  //generate an array of promises wrapping up the DOMs of the legislation
+  let options = {};
+  //let billDetailPages = bills.slice(0,3).map(bill => JSDOM.fromURL(bill.source_doc,options)) 
+  let billDetailPages = bills.map(bill => JSDOM.fromURL(bill.source_doc,options)) 
+
+
+  //process that array of promises with appropriate selectors
+  Promise.all(billDetailPages)
+    .then((pages) => {
+
+      let fullBills = pages.map((page,id) => {
+
+        let billIdSpan = page.window.document.querySelector("#ctl00_ContentPlaceHolder1_lblFile2");
+        let billIdText = billIdSpan.textContent;
+
+        let titleSpan = page.window.document.querySelector("#ctl00_ContentPlaceHolder1_lblName2");
+        let titleText = titleSpan.textContent
+
+        let billTextSpan = page.window.document.querySelector("#ctl00_ContentPlaceHolder1_lblTitle2");
+        let billText = billTextSpan.textContent
+
+        let sponsorSpan = page.window.document.querySelector("#ctl00_ContentPlaceHolder1_lblSponsors2");
+        let billSponsors = sponsorSpan ? Array.from(sponsorSpan.children).map(sponsorTag => sponsorTag.text) : null;
+
+    
+        let bill = {
+          billid: billIdText,
+          item_number:id,
+          title:titleText,
+          text: billText,
+          sponsors:billSponsors,
+          fiscal_impact: "None",
+          status_log: [{}],
+          question: "A motion was made that this Introduction be Approved by Council approved by Roll Call",
+          date: agendaDate,
+          source_doc: null,
+          uid: agendaDate + billIdText
+        }
+
+        console.log(bill);
+        return bill;
+      });
+
+      console.log(fullBills);
+
+      fs.writeFileSync("./agenda.json", JSON.stringify(fullBills,null,2));
+      
+    })
+
+})
+```
+
+Our output? By the time you read this blog, I suspect it might be a directory, but for now it's a single file at https://github.com/liquidvote/nyc-legislation/blob/master/agenda.json
