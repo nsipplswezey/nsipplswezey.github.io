@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Day 2
+title: Liquid Vote Berkeley Day 2
 ---
 
 ## Goal?
