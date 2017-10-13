@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Day 3
+title: Liquid Vote NYC Day 3
 ---
 
 ## Goal?
