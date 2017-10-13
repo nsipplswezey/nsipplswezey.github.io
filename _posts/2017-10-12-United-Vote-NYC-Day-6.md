@@ -11,18 +11,18 @@ What's [united.vote](https://united.vote/)?
 
 See [united.vote/sf](https://united.vote/sf).
 
-Oh [united.vote/sf](https://united.vote/sf) is broken?
+Oh [united.vote/sf](https://united.vote/sf) is broken? Not anymore! 
 
-Not anymore!
+![under construction](https://user-images.githubusercontent.com/7946707/31561828-fdef532c-b00d-11e7-8ff2-67b47eba5e4f.gif)
 
-![under construction](https://motherboard-images.vice.com/content-images/contentimage/26327/1444070256569233.gif) is over!(for now)
+Construction is over! For now.
 
 ## Day 6
 
-Before 
+Before:
 ![one bill](https://user-images.githubusercontent.com/7946707/31525385-d24a51d4-af74-11e7-9222-a080cf69b1d3.png)
 
-After
+After:
 ![all bills](https://user-images.githubusercontent.com/7946707/31525473-62828dde-af75-11e7-81ac-ff4d6d51cc4d.png)
 
 The change?
@@ -73,4 +73,9 @@ Turns out the US legislature API gives each bill a `bill_uid` property, and `/sf
     }
 ```
 
-Which contains all sorts of quirks: a check for an action flag `action.replace`, a use of `action.date` as the flag to distinguish between US national legislature and SF city council bills, a parseable but not entirely clear one-liner where the context of `||` `[]` can get lost on either side of a `:`, a variable named `bills` which in the `/sf` case never actually contains any bills, and then a reference to `action.bills` which actually contains bills, but contains a bad property reference for the response data of the API.
+Which contains all sorts of quirks: a check for an action flag `action.replace`, a use of `action.date` as the flag to distinguish between US national legislature and SF city council bills, a parseable but not entirely clear one-liner where the context of `||` `[]` can get lost on either side of a `:`, a variable named `bills` which in the `/sf` case never actually contains any bills, and then a reference to `action.bills` which actually contains bills, but contains a bad property reference for the response data of the API. Minor schenanigans.
+
+It's a nice small PR, and fixes what's broken. 
+
+And with that, I believe [united.vote](https://united.vote) and [united.vote/sf](https://united.vote/sf) should now be working as intended. In addition, Eric's PR, once merged, should have [united.vote/nyc](https://united.vote/nyc) up and running as well. Not bad. What next?
+
