@@ -27,7 +27,7 @@ After:
 
 The change?
 
-```
+``` js
      const bills = oldBills.reduce((obj, bill) => Object.assign(obj, { [bill.bill_uid]: bill }), {})
   
       action.bills.forEach((bill) => {
@@ -47,7 +47,7 @@ The change?
 
 Turns out the US legislature API gives each bill a `bill_uid` property, and `/sf` bill a `uid`. It got a bit lost in the context of the whole reducer.
 
-```
+``` js
   case 'SYNC_BILLS': // eslint-disable-line no-case-declarations
     const oldBills = (action.replace ? [] : state.bills[action.legislature || action.date] || [])
     const bills = oldBills.reduce((obj, bill) => Object.assign(obj, { [bill.bill_uid]: bill }), {})
