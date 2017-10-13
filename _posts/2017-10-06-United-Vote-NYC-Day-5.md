@@ -5,13 +5,13 @@ title: United Vote NYC Day 5
 
 ## Goal?
 
-Build [united.vote/nyc]("https://united.vote/nyc").
+Build [united.vote/nyc](https://united.vote/nyc).
 
-What's [united.vote]("https://united.vote/")?
+What's [united.vote](https://united.vote/)?
 
-See [united.vote/sf]("https://united.vote/sf").
+See [united.vote/sf](https://united.vote/sf).
 
-Oh [united.vote/sf]("https://united.vote/sf") is broken? They're rebuilding the new version of liquid.vote? 
+Oh [united.vote/sf](https://united.vote/sf) is broken? They're rebuilding the new version of liquid.vote? 
 
 And it's ![under construction](https://motherboard-images.vice.com/content-images/contentimage/26327/1444070256569233.gif)
 
