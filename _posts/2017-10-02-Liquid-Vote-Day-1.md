@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Day 1
+title: Liquid Vote Day 1
 ---
 
 ## Goal?
