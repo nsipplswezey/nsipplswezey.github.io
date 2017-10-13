@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Day 4
+title: Liquid Vote NYC Day 4
 ---
 
 ## Goal?
@@ -15,5 +15,5 @@ Oh [liquid.vote/sf]("https://liquid.vote/sf") is broken? They're rebuilding the 
 
 And it's ![under construction](https://motherboard-images.vice.com/content-images/contentimage/26327/1444070256569233.gif)
 
-## https://dillinger.io/ Ate The Day4 Post
+## https://dillinger.io/ Ate The Day 4 Post
 
