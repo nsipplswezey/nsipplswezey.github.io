@@ -41,7 +41,7 @@ What if you're an expert? Or someone who a lot of people trust? Then those peopl
 
 And what if both of those things were true? Someone trusted you as a good representation of their beliefs and values, and you trusted someone else to be a good representative of yours? Then your delegate would be able to vote not just with you behind them, but also with everyone who's behind you!
 
-![image](https://user-images.githubusercontent.com/7946707/31588703-abdbe6a6-b1aa-11e7-96bf-bc08deb59e5a.png)
+![image](https://user-images.githubusercontent.com/7946707/31621796-804e95ce-b24f-11e7-8909-412b433ce337.png)
 
 And just for good measure, what if you and a friend mutually agreed that you both shared similar beliefs? You could mutually delegate to eachother. Then whenever either of you voted, it would count for both of you.
 
