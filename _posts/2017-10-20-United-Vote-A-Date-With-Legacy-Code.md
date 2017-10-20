@@ -26,3 +26,77 @@ The specc:
 We've got past agendas worked out. Now we're working on future agendas. And we've run into a classic software engineering problem. The particular screens we're working on to render the next-agenda to the user, depends on the word `date`. And the word `date` in this context is worth a technical blog post.
 
 ## All These Dates
+
+```
+render() {
+    const { bills, homescreen, history, location, match, votes } = this.props
+    const { date } = match.params
+    const key = date || 'us'
+    let agenda = bills[key]
+
+    if (!agenda) {
+      return <ActivityIndicator />
+    }
+
+    if (date) {
+      agenda = _.sortBy(agenda, 'itemNumber', 'number')
+    }
+```
+
+```
+function getNextAgenda() {
+
+      fetch(`${API}/bills?date__gt=2017-10-19`)
+        .then(response => response.json())
+        .then((nextAgenda) => {
+
+          let billData = nextAgenda.data
+          let dateData = billData[0].date
+          nextAgenda = {
+            bills: billData,
+            date: dateData
+          }
+
+
+          props.dispatch({ nextAgenda, type: 'SYNC_NEXT_AGENDA' })
+```
+
+```
+  case 'SYNC_BILLS': // eslint-disable-line no-case-declarations
+
+    //Collecting existing old bills, and deduplicate them(US legislature API has dupes)
+    const oldBills = (action.replace ? [] : state.bills[action.legislature || action.date] || [])
+    const bills = oldBills.reduce((obj, bill) => Object.assign(obj, { [bill.bill_uid]: bill }), {})
+
+    action.bills.forEach((bill) => {
+      //US legislature uid property name
+      if(bill["bill_uid"]){
+        bills[bill.bill_uid] = bill
+      }
+      //SF legislature uid property name
+      if(bill["uid"]){
+        bills[bill.uid] = bill
+      }
+    })
+```
+
+```
+render() {
+    const { bill, history, agendaVotes } = this.props
+
+    let currentMunicipality = history.location.pathname.split("/")[1]
+
+    //NYC uses uid
+    let billUrl = `/${currentMunicipality}/${bill.date}/${bill.uid}`
+    if (bill.introduced) {
+      billUrl = `/legislation/${bill.bill_uid}`
+    }
+```
+
+
+
+
+
+
+
+
