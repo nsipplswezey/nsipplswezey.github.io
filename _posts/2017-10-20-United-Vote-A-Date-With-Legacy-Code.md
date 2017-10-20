@@ -1,6 +1,6 @@
 ---
 layout: post
-title: United-Vote-Legacy-Code-and-TwoHardThings
+title: United-Vote-A-Date-With-Legacy-Code
 ---
 > There are only two hard things in Computer Science: cache invalidation and naming things.
 >-- Phil Karlton
