@@ -12,7 +12,7 @@ What's [http://demo.united.vote/](http://demo.united.vote/)?
 
 It's participatory democracy with delegation. If legislation affects you, you can vote on it. If you trust someone elses vote, you can delegate your vote to them. When they vote, you vote along with them.
 
-You can see a staging environment for NYC legislation here: https://still-beach-17383.herokuapp.com/nyc
+You can see a staging environment for NYC legislation here: [https://still-beach-17383.herokuapp.com/nyc](https://still-beach-17383.herokuapp.com/nyc)
 
 ## Scope: What needs to be done?
 
@@ -134,7 +134,7 @@ The specc:
 - a user should be notified of relevant city council agenda topics on new agendas
 - a user should be able to regsiter a vote on a city council agenda topic
 
-Anyway. We're up and running with new city council agendas. And past city council agendas. You should be able to see a working staging server for future NYC bills at until Halloween. https://still-beach-17383.herokuapp.com/nyc
+Anyway. We're up and running with new city council agendas. And past city council agendas. You should be able to see a working staging server for future NYC bills at until Halloween. [https://still-beach-17383.herokuapp.com/nyc](https://still-beach-17383.herokuapp.com/nyc)
 
 Next up it's automation and notification time, so that new agendas get scraped and pushed automatically when they're released.
 
