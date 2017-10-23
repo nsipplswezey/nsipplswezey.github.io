@@ -123,7 +123,18 @@ So we ended up with a couple ternary checks:
     const date = nextAgenda ? nextAgenda.date : match.params.date
 ```
 
+## Up And Running
+
+The specc: 
+- √ a user should be able to see items on upcoming city council agendas √
+- √ a user should be able to see past city council agendas √
+- a user should be notified when a new city council agenda has been set
+- a user should be notified of relevant city council agenda topics on new agendas
+- a user should be able to regsiter a vote on a city council agenda topic
+
 Anyway. We're up and running with new city council agendas. And past city council agendas. You should be able to see a working staging server for future NYC bills at until Halloween. https://still-beach-17383.herokuapp.com/nyc
+
+Next up it's automation and notification time, so that new agendas get scraped and pushed automatically when they're released.
 
 
 
