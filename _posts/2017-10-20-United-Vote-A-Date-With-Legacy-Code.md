@@ -27,7 +27,11 @@ We've got past agendas worked out. Now we're working on future agendas. And we'v
 
 ## All These Dates
 
-```
+At first glance this was confusing.
+
+Here's one instance of `date`.
+
+``` javascript{2}
 render() {
     const { bills, homescreen, history, location, match, votes } = this.props
     const { date } = match.params
@@ -43,7 +47,9 @@ render() {
     }
 ```
 
-```
+And here's another three: `${API}/bills?date__gt=2017-10-19` and then `billData[0].date` and then `nextAgenda = { ... date:dateData}`
+
+``` js
 function getNextAgenda() {
 
       fetch(`${API}/bills?date__gt=2017-10-19`)
@@ -60,6 +66,8 @@ function getNextAgenda() {
 
           props.dispatch({ nextAgenda, type: 'SYNC_NEXT_AGENDA' })
 ```
+
+And now
 
 ```
   case 'SYNC_BILLS': // eslint-disable-line no-case-declarations
