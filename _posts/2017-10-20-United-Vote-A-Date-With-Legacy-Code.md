@@ -6,13 +6,15 @@ title: United-Vote-A-Date-With-Legacy-Code
 >-- Phil Karlton
 ## Goal?
 
-Improve [http://demo.united.vote/](http://demo.united.vote/).
+Render city council agendas before city council votes for NYC, Oakland, Berkeley and Boulder.
 
-What's [http://demo.united.vote/](http://demo.united.vote/)?
+This work is based off of [http://united.vote/](http://united.vote/)?
+
+What's [http://united.vote/](http://united.vote/)?
 
 It's participatory democracy with delegation. If legislation affects you, you can vote on it. If you trust someone elses vote, you can delegate your vote to them. When they vote, you vote along with them.
 
-You can see a staging environment for NYC legislation here: [https://still-beach-17383.herokuapp.com/nyc](https://still-beach-17383.herokuapp.com/nyc)
+You can see a staging environment with a mock future agenda for NYC legislation here: [https://still-beach-17383.herokuapp.com/nyc](https://still-beach-17383.herokuapp.com/nyc)
 
 ## Scope: What needs to be done?
 
