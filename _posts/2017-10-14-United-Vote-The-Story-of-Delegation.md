@@ -1,6 +1,6 @@
 ---
 layout: post
-title: United-Vote-the-Story-of-Delegation
+title: United Vote the Story of Delegation
 ---
 
 ## Goal?
