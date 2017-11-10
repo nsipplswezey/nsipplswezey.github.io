@@ -11,6 +11,8 @@ I give someone the object, and indicate that I have gifted it. They download the
 
 ## Scope: What needs to be done?
 
+This project is more involved than what's often projected as the use-case for react-native, because it involves a component –a customized CNN driven camera– that exists outside of the @expo SDK. Additionally, because the camera is involved in a UI/UX capacity, testing the CNN needs to actually happen on the device itself. Which means regularly building the app and running it on the phone. My current build-to-phone step seems to take in excess of 1-minute to bundle and deploy. This makes for a somewhat slow feedback loop for code changes. That slow loop is tolerable for building out the custom camera component. There's no alternative anyway. But for building out user interface components, 1-minute between changing some CSS, and seeing the new CSS update is a problem. We need a tighter feedback loop for UI work.
+
 
 
 ## The Simplest Thing Possible
