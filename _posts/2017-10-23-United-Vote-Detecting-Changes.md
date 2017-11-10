@@ -1,6 +1,6 @@
 ---
 layout: post
-title: United-Vote-Detecting-Changes
+title: United Vote Detecting Changes
 ---
 ## Goal?
 
