@@ -3,7 +3,7 @@ layout: post
 title: VoltAGE A React Native Dev Feedback Loop For Apps That Use Custom Native Components
 ---
 
-{% include video.html %}
+
 
 ## Goal?
 VoltAGE is a react-native app that uses a client-side-optimized convoluted-neural-net(CNN) to detect, and generate specific model parameters for specific target objects.
