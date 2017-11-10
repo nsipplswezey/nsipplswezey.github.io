@@ -1,6 +1,6 @@
 ---
 layout: post
-title: VoltAGE: A React Native Dev Feedback Loop For Apps That Use Custom Native Components
+title: VoltAGE A React Native Dev Feedback Loop For Apps That Use Custom Native Components
 ---
 
 {% include video.html %}
