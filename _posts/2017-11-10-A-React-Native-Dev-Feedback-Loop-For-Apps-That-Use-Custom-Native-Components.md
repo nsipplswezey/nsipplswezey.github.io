@@ -32,5 +32,6 @@ I have a VoltAGE code base I wrote a while back, before expo even existed. It co
 
 Then based on that UI, continue to develop out the CNN enhanced camera as needed.
 
+![voltage](https://user-images.githubusercontent.com/7946707/32696574-70902de6-c730-11e7-8027-b840e8bc7860.gif)
 
 
