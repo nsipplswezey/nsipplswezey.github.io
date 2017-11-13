@@ -3,8 +3,6 @@ layout: post
 title: VoltAGE: The Camera
 ---
 
-
-
 ## Goal?
 VoltAGE is a react-native app that uses a client-side-optimized convoluted-neural-net(CNN) to detect, and generate specific model parameters for specific target objects.
 
