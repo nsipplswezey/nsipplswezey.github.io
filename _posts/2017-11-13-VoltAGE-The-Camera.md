@@ -91,6 +91,8 @@ Additionally, Xcode by default turns on bitcode, which causes an error. So we ne
 
 ## Up And Running
 
-Looks like we've got it.
+Looks like we've got the CNN up and running! Next up we integrate the CNN into the camera in our `captureOutput` method.
+
+![voltage2](https://user-images.githubusercontent.com/7946707/32752258-5eda001a-c87d-11e7-99d8-d4698613221f.gif)
 
 
