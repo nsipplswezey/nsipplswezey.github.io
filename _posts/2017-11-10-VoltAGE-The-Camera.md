@@ -31,8 +31,66 @@ And ideally, this is where we can run our CNN on frames as they become available
 
 With the react component side sorted out, we need to get up and running with the machine learning library. So let's get some jetpacc examples[https://github.com/jetpacapp/DeepBeliefSDK/tree/gh-pages#examples](https://github.com/jetpacapp/DeepBeliefSDK/tree/gh-pages#examples) up and running.
 
+First off, the jetpac examples are actually based on Apples examples of cameras, which use a `require(condition, bail)` pattern for error handling in three instances. This throws a `use of undeclared identifer 'bail'` error. 
+
+```
+// utility routine used after taking a still image to write the resulting image to the camera roll
+- (BOOL)writeCGImageToCameraRoll:(CGImageRef)cgImage withMetadata:(NSDictionary *)metadata
+{
+	CFMutableDataRef destinationData = CFDataCreateMutable(kCFAllocatorDefault, 0);
+	CGImageDestinationRef destination = CGImageDestinationCreateWithData(destinationData, 
+																		 CFSTR("public.jpeg"), 
+																		 1, 
+																		 NULL);
+	BOOL success = (destination != NULL);
+	require(success, bail);
+
+	const float JPEGCompQuality = 0.85f; // JPEGHigherQuality
+	CFMutableDictionaryRef optionsDict = NULL;
+	CFNumberRef qualityNum = NULL;
+	
+	qualityNum = CFNumberCreate(0, kCFNumberFloatType, &JPEGCompQuality);    
+	if ( qualityNum ) {
+		optionsDict = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+		if ( optionsDict )
+			CFDictionarySetValue(optionsDict, kCGImageDestinationLossyCompressionQuality, qualityNum);
+		CFRelease( qualityNum );
+	}
+	
+	CGImageDestinationAddImage( destination, cgImage, optionsDict );
+	success = CGImageDestinationFinalize( destination );
+
+	if ( optionsDict )
+		CFRelease(optionsDict);
+	
+	require(success, bail);
+	
+	CFRetain(destinationData);
+	ALAssetsLibrary *library = [ALAssetsLibrary new];
+	[library writeImageDataToSavedPhotosAlbum:(id)destinationData metadata:metadata completionBlock:^(NSURL *assetURL, NSError *error) {
+		if (destinationData)
+			CFRelease(destinationData);
+	}];
+	[library release];
+
+
+bail:
+	if (destinationData)
+		CFRelease(destinationData);
+	if (destination)
+		CFRelease(destination);
+	return success;
+}
+```
+
+We can comment this out, since we don't need to take pictures right now. And if we did later, we could reference this approach in implementing a new one.
+
+The other instance of the `require` `bail` pattern seems to be replaceable by an `if` statement for now.
+
+Additionally, Xcode by default turns on bitcode, which causes an error. So we need to go turn off bitcode in build settings.
+
 ## Up And Running
 
-
+Looks like we've got it.
 
 
