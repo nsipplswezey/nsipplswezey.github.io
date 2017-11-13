@@ -1,6 +1,6 @@
 ---
 layout: post
-title: VoltAGE: The Camera
+title: VoltAGE The Camera
 ---
 
 ## Goal?
