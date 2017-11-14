@@ -31,7 +31,7 @@ And ideally, this is where we can run our CNN on frames as they become available
 
 With the react component side sorted out, we need to get up and running with the machine learning library. So let's get some jetpacc examples[https://github.com/jetpacapp/DeepBeliefSDK/tree/gh-pages#examples](https://github.com/jetpacapp/DeepBeliefSDK/tree/gh-pages#examples) up and running.
 
-First off, the jetpac examples are actually based on Apples examples of cameras, which use a `require(condition, bail)` pattern for error handling in three instances. This throws a `use of undeclared identifer 'bail'` error. 
+First off, the jetpac examples –which are ~4 years old– are actually based on Apple's 4 year old examples of camera apps, which use a `require(condition, bail)` pattern for error handling in three instances. This throws a `use of undeclared identifer 'bail'` error in modern Xcode. 
 
 ```
 // utility routine used after taking a still image to write the resulting image to the camera roll
@@ -88,6 +88,8 @@ We can comment this out, since we don't need to take pictures right now. And if 
 The other instance of the `require` `bail` pattern seems to be replaceable by an `if` statement for now.
 
 Additionally, Xcode by default turns on bitcode, which causes an error. So we need to go turn off bitcode in build settings.
+
+Otherwise, it looks like this 4 year old example app builds just fine in modern Xcode, and runs just fine on a modern iOS operating system.
 
 ## Up And Running
 
