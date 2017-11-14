@@ -20,7 +20,67 @@ Let's tackle that second item first. The existing react-native-camera component 
 
 At it's simplest, the link between the objective-C layer and the react component layer is just an event emitted from the native layer, a listener on the react-native side for that event, and a react-native-camera component method that will be invoked with native data when the native event is emitted.
 
+Removing other layers of complexity for handling different cases, essentially we have the following parts:
 
+A objective-C method which sends the app event `CameraCNNDetect`, with some data `body:event` which in this case is just an objective-C dictionary(synonymous with a javascript object for most of our purpses). I'm leaving the commented code in for reference
+
+```
+- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection
+{
+    //CVPixelBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
+    //[self runCNNOnFrame:pixelBuffer];
+    //NSLog(@"Hello");
+    
+    
+    NSDictionary *event = @{
+                            @"data": @"Hello there"
+                            };
+                            
+    
+    [self.bridge.eventDispatcher sendAppEventWithName:@"CameraCNNDetect" body:event];
+    
+}
+```
+
+Then in our camera component we can call:
+
+```
+NativeAppEventEmitter.addListener('CameraCNNDetect', this._onCNNDetect)
+```
+
+And we can define a method `_onCNNDetect`
+
+```
+  _onCNNDetect = (data) => {
+    if (this.props.onCNNDetect) {
+      this.props.onCNNDetect(data)
+    }
+  };
+ ```
+ 
+ And we can pass a prop to our camera `onCNNDetect={(event) => {console.log(event.data)}}`
+ 
+ ```
+  export default class BadInstagramCloneApp extends Component {
+   render() {
+     return (
+       <View style={styles.container}>
+         <Camera
+           ref={(cam) => {
+             this.camera = cam;
+           }}
+           style={styles.preview}
+           aspect={Camera.constants.Aspect.fill}
+           onCNNDetect={(event) => {console.log(event.data)}}
+           >
+           <Text style={styles.capture} onPress={this.takePicture.bind(this)}>[CAPTURE]</Text>
+         </Camera>
+       </View>
+     );
+   }
+ ```
+
+Something like that should log "Hello there" to our react-native camera app console. 
 
 ## Up And Running
 
