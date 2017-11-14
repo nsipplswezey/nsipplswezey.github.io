@@ -94,6 +94,54 @@ Something like that should log "Hello there" to our react-native camera app cons
 
 ## Up And Running
 
+The actual up-and-running detection event callback has an extra log in it:
+
+```
+onCNNDetect={(event) => {console.log("positive CNN classification"); console.log(event.data);}}
+```
+
+And the `NSLog(@"Hello");` is uncommented.
+
+And here's a nice console log dump from Xcode, showing that our round trip works generally as expected.
+
+```
+2017-11-14 11:43:19.350951-0800 camera[2767:2110203] positive CNN classification
+2017-11-14 11:43:19.351 [info][tid:com.facebook.react.JavaScript] Hello there
+2017-11-14 11:43:19.351266-0800 camera[2767:2110203] Hello there
+2017-11-14 11:43:19.382933-0800 camera[2767:2110857] Hello
+2017-11-14 11:43:19.385 [info][tid:com.facebook.react.JavaScript] positive CNN classification
+2017-11-14 11:43:19.385161-0800 camera[2767:2110203] positive CNN classification
+2017-11-14 11:43:19.385 [info][tid:com.facebook.react.JavaScript] Hello there
+2017-11-14 11:43:19.386963-0800 camera[2767:2110203] Hello there
+2017-11-14 11:43:19.418143-0800 camera[2767:2110857] Hello
+2017-11-14 11:43:19.419 [info][tid:com.facebook.react.JavaScript] positive CNN classification
+2017-11-14 11:43:19.419489-0800 camera[2767:2110203] positive CNN classification
+2017-11-14 11:43:19.420 [info][tid:com.facebook.react.JavaScript] Hello there
+2017-11-14 11:43:19.419785-0800 camera[2767:2110203] Hello there
+2017-11-14 11:43:19.450307-0800 camera[2767:2110857] Hello
+2017-11-14 11:43:19.451 [info][tid:com.facebook.react.JavaScript] positive CNN classification
+2017-11-14 11:43:19.451525-0800 camera[2767:2110203] positive CNN classification
+2017-11-14 11:43:19.452 [info][tid:com.facebook.react.JavaScript] Hello there
+2017-11-14 11:43:19.451815-0800 camera[2767:2110203] Hello there
+2017-11-14 11:43:19.486588-0800 camera[2767:2110857] Hello
+2017-11-14 11:43:19.489 [info][tid:com.facebook.react.JavaScript] positive CNN classification
+2017-11-14 11:43:19.488851-0800 camera[2767:2110203] positive CNN classification
+2017-11-14 11:43:19.489 [info][tid:com.facebook.react.JavaScript] Hello there
+2017-11-14 11:43:19.489149-0800 camera[2767:2110203] Hello there
+2017-11-14 11:43:19.516057-0800 camera[2767:2110857] Hello
+2017-11-14 11:43:19.518 [info][tid:com.facebook.react.JavaScript] positive CNN classification
+2017-11-14 11:43:19.517931-0800 camera[2767:2110203] positive CNN classification
+2017-11-14 11:43:19.518 [info][tid:com.facebook.react.JavaScript] Hello there
+2017-11-14 11:43:19.518218-0800 camera[2767:2110203] Hello there
+2017-11-14 11:43:19.550753-0800 camera[2767:2110857] Hello
+2017-11-14 11:43:19.553 [info][tid:com.facebook.react.JavaScript] positive CNN classification
+2017-11-14 11:43:19.553483-0800 camera[2767:2110203] positive CNN classification
+2017-11-14 11:43:19.554 [info][tid:com.facebook.react.JavaScript] Hello there
+2017-11-14 11:43:19.553848-0800 camera[2767:2110203] Hello there
+2017-11-14 11:43:19.582577-0800 camera[2767:2110857] Hello
+2017-11-14 11:43:19.585 [info][tid:com.facebook.react.JavaScript] positive CNN classification
+```
+
 
 
 
