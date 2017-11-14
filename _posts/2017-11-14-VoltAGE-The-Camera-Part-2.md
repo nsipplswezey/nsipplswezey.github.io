@@ -102,7 +102,7 @@ onCNNDetect={(event) => {console.log("positive CNN classification"); console.log
 
 And the `NSLog(@"Hello");` is uncommented.
 
-And here's a nice console log dump from Xcode, showing that our round trip works generally as expected.
+And here's a nice console log dump from Xcode, showing that our round trip works generally as expected. We can now access data from the obejective-C layer of our react-native camera component in the javascript methods of our camera component.
 
 ```
 2017-11-14 11:43:19.350951-0800 camera[2767:2110203] positive CNN classification
