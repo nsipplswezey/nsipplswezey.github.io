@@ -63,7 +63,12 @@ And we can define a method `_onCNNDetect`
   };
  ```
  
- And we can pass a prop to our camera `onCNNDetect={(event) => {console.log(event.data)}}`
+ And we can pass a prop to our camera 
+ ```
+ onCNNDetect={(event) => {console.log(event.data)}}`
+ ```
+ 
+ In context:
  
  ```
   export default class BadInstagramCloneApp extends Component {
