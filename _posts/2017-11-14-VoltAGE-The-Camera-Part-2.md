@@ -22,7 +22,12 @@ At it's simplest, the link between the objective-C layer and the react component
 
 Removing other layers of complexity for handling different cases, essentially we have the following parts:
 
-A objective-C method which sends the app event `CameraCNNDetect`, with some data `body:event` which in this case is just an objective-C dictionary(synonymous with a javascript object for most of our purpses). I'm leaving the commented code in for reference
+A objective-C method which sends the app event `CameraCNNDetect`, with some data `body:event` which in this case is just an objective-C dictionary(synonymous with a javascript object for most of our purpses). 
+
+```
+[self.bridge.eventDispatcher sendAppEventWithName:@"CameraCNNDetect" body:event];
+```
+And in context (leaving the commented code in for reference)
 
 ```
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection
