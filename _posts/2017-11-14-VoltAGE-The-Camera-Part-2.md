@@ -16,7 +16,11 @@ We've got our fork of the react-native camera up and running, modified to consol
 
 There are two next steps. One step is to start brining the image classifier into the react-native-camera. Another step is to pass a callback as a prop of the react-camera component, that is invoked at the objective-C layer with some data that can be made accessible at the react component level.
 
-Let's tackle that second item first.
+Let's tackle that second item first. The existing react-native-camera component includes a barcode reader. A positive CNN classification is similar to a positive barcode read. We can use the existing barcode reader logic as a model for implementing on CNN classifier logic.
+
+At it's simplest, the link between the objective-C layer and the react component layer is just an event emitted from the native layer, a listener on the react-native side for that event, and a react-native-camera component method that will be invoked with native data when the native event is emitted.
+
+
 
 ## Up And Running
 
