@@ -142,6 +142,6 @@ And here's a nice console log dump from Xcode, showing that our round trip works
 2017-11-14 11:43:19.585 [info][tid:com.facebook.react.JavaScript] positive CNN classification
 ```
 
-
+###### Thanks to Brian Cline @standardhuman and Lawrence Stiers @tandcsurf for comments and feedback on this post
 
 
