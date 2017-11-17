@@ -143,6 +143,6 @@ And here's a nice console log dump from Xcode, showing that our round trip works
 ```
 
 ## **Thanks** 
-to Brian Cline [@standardhuman](https://github.com/standardhuman) and Lawrence Stiers [@tandcsurf](https://github.com/tandcsurf) for comments and feedback on this post.
+Brian Cline [@standardhuman](https://github.com/standardhuman) and Lawrence Stiers [@tandcsurf](https://github.com/tandcsurf) for comments and feedback on this post.
 
 
