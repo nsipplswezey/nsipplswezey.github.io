@@ -20,23 +20,25 @@ We now have access to model data from the API available in our fork of react-nat
 
 Our CNN exists in an iOS framework written in objective-C and C++ called DeepBelief. To get up and running, we need to correctly set up dependencies for the framework, link the framework itself to our fork of react-native-camera, then correctly use the framework methods to detect our target objects.
 
-Linking external dependencies seems straightforward, but this turns out to be a surprisingly tricky endevour. React-native adds an additional layer of complexity upon normal iOS development. Most of the XCode errors I ran into were strikingly cryptic, and it was difficult to deduce whether it was a react-native specific or general iOS/Xcode issue. A lot of troubleshooting suggestions online amounted to "Clean the project, restart XCode" followed by a comment saying "worked for me!" and another comment saying "this didn't work for me!" Also adding to the challenge is that most configuration of XCode projects is gone using the GUI, or using some other interface like `react-native link` or cocoapods, which oclude what's actually happening to some degree. This the reflexive `clean and restart and it worked, but I don't know why."
+Linking external dependencies seems straightforward, but this turns out to be a surprisingly tricky endevour. React-native adds an additional layer of complexity upon normal iOS development. Most of the XCode errors I ran into were strikingly cryptic, and it was difficult to deduce whether it was a react-native specific or general iOS/Xcode issue. A lot of troubleshooting suggestions online amounted to "Clean the project, restart XCode" followed by a comment saying "worked for me!" and another comment saying "this didn't work for me!" Also adding to the challenge is that most configuration of XCode projects is gone using the GUI, or using some other interface like `react-native link` or cocoapods, which oclude what's actually happening to some degree. This the reflexive "clean and restart and it worked, but I don't know why."
 
 Anyway, the long and short of it appears to be something like the following:
 
 Copy the framework file in a directory NOT named `Resources` (which appears to cause silent naming conflicts) into the parent app directory(not the react-native-camera directory). I used the name `iOSLibrary`.
 
-Add those files to the parent project workspace. Did this with the XCode GUI.
+Add those files to the parent project workspace. Did this with the XCode GUI. XCode workspace UI looks like:
+
+![image](https://user-images.githubusercontent.com/7946707/33296779-344dc5aa-d392-11e7-8607-8ca3f62914de.png)
 
 Add the framework and it's dependencies in the `Linked Frameworks and Libraries` section of the General tab of your top level app(not the react-native-camera). The framework is `DeepBelief.framework` and needs to be accessed with the `AddOther` button. DeepBelief depends on the `Accelerate.framework` which is a provided developer framework.
 
-Then I needed to add the `-lc++` flag under `Other Linker Flags` in the parent app(though not the react-native-camera) project itself.
+Then I needed to add the `-lc++` flag under `Other Linker Flags` in the parent app(though not the react-native-camera) project itself. Why? Because this is how you link to the modern c++ compiler into your obj-c project, which is necessary for the DeepBelief framework. All of our `jpcnn` methods are all c++ methods from the framework. Keep your eyes open for `jpcnn_create_network` `jpcnn_load_predictor` `jpcnn_classify_image` `jpcnn_destroy_image_buffer` `jpcnn_predict`. 
 
 Add the path to that framework to your `Framework Search Paths` which in our case looks like `"$(SRCROOT)/../iOSLibrary"` because SRCROOT resolves to the `ios` directory containing our `.xcodeproj`, and our `iOSLibrary` directory is in the parent directory. This might be work reconsidering later since the iOSLibrary is specific to the `ios` version of our react-native app.
 
 And after all that, add `#import <DeepBelief/DeepBelief.h>` to the top of `RCTCameraManager.m` where I'll be invoking the CNN methods.
 
-Then! After that! I needed to add the `ntwk` file and my specific trained VoltAGE perdictor .txt file `VoltAGE_1_predictor.txt` to the project!
+Then! After that! I needed to add the `jetpac.ntwk` file and my specific trained VoltAGE perdictor .txt file `VoltAGE_1_predictor.txt` to the project! The `jetpac.ntwk` is the actual neural network, and the `*_predictor.txt` is the prediction model, which is used to parameterize the `jetpac.ntwk`. Think of it as `jetpack.ntwk` is the structure of the web of transmission wires that make up the network, and `*_predictor.txt` is the specification of how thick each wire should be. There are better metaphors, but essentially the `.ntwk` is the designation of which nodes are connected to which in the network graph, and the `*_predictor.txt` is the weight, or value assigned, to each connection between those nodes. When we trained our model on the VoltAGE target, we were determining a set of weights for each edge of the graph that allow us to uniquely visually identify that specific target. It's sort of like a unique-ish(though not strictly unique) fingerprint for that particular item. The .ntwk –which nodes are connected to which- stays constant even as the values for the connections between them might be different. Working the fingerprint metaphor, it's like everyone has a tumb with lines on it; that's the `.ntwk`. But the shape and pattern of each persons lines on their thumb are different.
 
 After all of that we're good to go with our CNN methods... so our setCNNModel method looks like:
 
