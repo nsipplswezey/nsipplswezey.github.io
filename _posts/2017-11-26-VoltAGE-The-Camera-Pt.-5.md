@@ -38,9 +38,9 @@ Add the path to that framework to your `Framework Search Paths` which in our cas
 
 And after all that, add `#import <DeepBelief/DeepBelief.h>` to the top of `RCTCameraManager.m` where I'll be invoking the CNN methods.
 
-Then! After that! I needed to add the `jetpac.ntwk` file and my specific trained VoltAGE perdictor .txt file `VoltAGE_1_predictor.txt` to the project! The `jetpac.ntwk` is the actual neural network, and the `*_predictor.txt` is the prediction model, which is used to parameterize the `jetpac.ntwk`. Think of it as `jetpack.ntwk` is the structure of the web of transmission wires that make up the network, and `*_predictor.txt` is the specification of how thick each wire should be. There are better metaphors, but essentially the `.ntwk` is the designation of which nodes are connected to which in the network graph, and the `*_predictor.txt` is the weight, or value assigned, to each connection between those nodes. When we trained our model on the VoltAGE target, we were determining a set of weights for each edge of the graph that allow us to uniquely visually identify that specific target. It's sort of like a unique-ish(though not strictly unique) fingerprint for that particular item. The .ntwk –which nodes are connected to which- stays constant even as the values for the connections between them might be different. Working the fingerprint metaphor, it's like everyone has a tumb with lines on it; that's the `.ntwk`. But the shape and pattern of each persons lines on their thumb are different.
+Then! After that! I needed to add the `jetpac.ntwk` file and my specific trained VoltAGE perdictor .txt file `VoltAGE_1_predictor.txt` to the project! The `jetpac.ntwk` is the actual neural network, and the `*_predictor.txt` is the prediction model, which is used to parameterize the `jetpac.ntwk`. Think of it as `jetpack.ntwk` is the structure of the web of transmission wires that make up the network, and `*_predictor.txt` is the specification of how thick each wire should be. There are better metaphors, but essentially the `.ntwk` is the designation of which nodes are connected to which in the network graph, and the `*_predictor.txt` is the weight, or value assigned, to each connection between those nodes. When we trained our model on the VoltAGE target, we were determining a set of weights for each edge of the graph that allow us to uniquely visually identify that specific target. It's sort of like a unique-ish(though not strictly unique) fingerprint for that particular item. The .ntwk –which nodes are connected to which- stays constant even as the values for the connections between them might be different. Working the fingerprint metaphor, it's like everyone has a tumb with lines on it; that's the `.ntwk`. But the shape and pattern of each persons lines on their thumb are different. The unique shape and pattern of the lines for this particular thumb are the values in the `*_predictor.txt` which we've periodically console logged in past posts.
 
-After all of that we're good to go with our CNN methods... so our setCNNModel method looks like:
+After all of that we're good to go with our CNN methods... so our setCNNModel creates the network based on the .ntwk file. Then it loads the predictor. We can now load the network and predictor using the `setCNNModel` method from the react layer of our component. The method looks like:
 
 ```
 RCT_EXPORT_METHOD(setCNNModel:(NSString *)model) {
@@ -65,7 +65,7 @@ RCT_EXPORT_METHOD(setCNNModel:(NSString *)model) {
 }
 ```
 
-Our runCNNOnFrame method looks like:
+Then we have a method for running our CNN on a frame. The frames arrive as a reference to a pixel buffer. Essentially all the pixels of a particular image coming through the front facing camera are stored in a buffer. Properties of the pixelbuffer are captured, then passed to `jpcnn_create_image_buffer_from_unit8_data` to create the input for our CNN. We classify the image. Then destroy the buffer. Then generate a prediction value. On my phone, this happens approximately every 0.25 seconds. Our runCNNOnFrame method looks like:
 
 ```
 - (void)runCNNOnFrame: (CVPixelBufferRef) pixelBuffer
@@ -121,7 +121,7 @@ Our runCNNOnFrame method looks like:
 }
 ```
 
-Our sample buffer output method looks like:
+The method where the frames of the front facing camera are captured to a sample buffer checks to make sure our network and predictors are set, then creates a pixelbuffer, and passes the pixel buffer to an invocation of our `runCNNOnFrame` method. Our method for handling sample buffer output looks like:
 
 ```
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection
