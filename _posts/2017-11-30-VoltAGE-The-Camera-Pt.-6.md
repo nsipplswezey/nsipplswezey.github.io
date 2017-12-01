@@ -84,15 +84,30 @@ We want to take that string and write it to a .txt file so we can then pass it t
  
 Brief breakdown the code:
 
-We create a string for a `filePath`. `[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject]` resolves to `/var/mobile/Containers/Data/Application/8051E3C5-B9AD-418D-B73E-90BABFC81B72/Documents/` to which we append `VoltAGE_predictor_from_api.txt`.
+We create a string for a `filePath`. 
+```
+[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject]`
+```
+resolves to
+```
+/var/mobile/Containers/Data/Application/8051E3C5-B9AD-418D-B73E-90BABFC81B72/Documents/
+```
+to which we append `VoltAGE_predictor_from_api.txt`.
  
-We then write the string `model` to `filePath` which looks like `[model writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];`.
+We then write the string `model` to `filePath` which looks like:
+```
+[model writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
+```
  
-And just to be sure, we can read that file back out to a string while handling errors, with `[NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&error];`. All we really need to set up our CNN, however, is the path to the `.txt` file, which is `NSString *filePath`.
+And just to be sure, we can read that file back out to a string while handling errors, with:
+```
+[NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&error];
+```
+All we really need to set up our CNN, however, is the path to the `.txt` file, which is the `NSString *filePath`.
 
 To very minimally separate our model writing from our `predictorPath` assignment, since we might eventually have multiple models to select from, we do a simple reassignment of the path with `NSString* predictorPath = filePath;`
 
-Then we load our predictor into our CNN with `predictor = jpcnn_load_predictor([predictorPath UTF8String]);` and make sure some kind of predictor exists with `    assert(predictor != NULL);`.
+Then we load our predictor into our CNN with `predictor = jpcnn_load_predictor([predictorPath UTF8String]);` and make sure some kind of predictor exists with `assert(predictor != NULL);`.
 
 The next step is to feed our stream of predictor values back out to our react component layer.
 
