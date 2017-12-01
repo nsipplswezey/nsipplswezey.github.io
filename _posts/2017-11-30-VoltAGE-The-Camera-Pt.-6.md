@@ -1,6 +1,6 @@
 ---
 layout: post
-title: VoltAGE The Camera Pt. 5
+title: VoltAGE The Camera Pt. 6
 ---
 
 ## Goal?
