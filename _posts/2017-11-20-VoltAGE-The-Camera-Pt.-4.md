@@ -123,3 +123,6 @@ SV
 ```
 
 The next step from here it to pass that data into our CNN. And to do that, we need to integrate our CNN objective-C classes into our fork of react-native-camera.
+
+## **Thanks** 
+Brian Cline [@standardhuman](https://github.com/standardhuman) and Lawrence Stiers [@tandcsurf](https://github.com/tandcsurf) for comments and feedback on this post.
