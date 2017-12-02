@@ -18,9 +18,9 @@ It turns out storing and fetching these models as strings works fine, and the cl
 
 Now that we're able to load a model from the API, let's add a new model to the backend.
 
-To keep things simple, we'll just reseed our API database with a new model. We can handle POSTing logic later. And to keep our backend maintainable, for now we'll use a `tasks` abstraction for writing new models.
+To keep things simple, we'll just reseed our API database with a new model. We can handle POSTing logic later. And to keep our backend maintainable, we'll use the provided `tasks` abstraction from nodal.js.
 
-A task is simply a container for any repeated or repeatable work that our API server might need to do. Task running can also be automated as a cron job, though we don't need that yet either.
+A task is simply a container for any repeated or repeatable work that our API server might need to do that can be run with `nodal task <task_name>`. Task running can also be automated as a cron job, though we don't need that yet either.
 
 All we need is a task that reads through a directory of our predictor models like `VoltAGE_1_predictor.txt` and `VoltAGE_2_predictor.txt` and then writes them into our API servers `seed.json` file.
 
