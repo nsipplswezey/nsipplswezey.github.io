@@ -40,40 +40,22 @@ There's room, it seems, for some optimization. Our classification and prediction
 ```
 12-18 11:06:54.452 31479 31497 D ReactNative: jpcnn_predict() value is 0.09783074.
 12-18 11:06:54.452 31479 31497 D ReactNative: jpcnn_classify_image() + predict() took 5.302 seconds.
-12-18 11:06:54.452 31479 31497 D ReactNative: predictionsLength = 4096
-12-18 11:06:54.770 31479   399 D ReactNative: Classifying image placeholder - byte
 12-18 11:06:59.310 31479   399 D ReactNative: jpcnn_predict() value is 0.4637906.
 12-18 11:06:59.310 31479   399 D ReactNative: jpcnn_classify_image() + predict() took 4.183 seconds.
-12-18 11:06:59.310 31479   399 D ReactNative: predictionsLength = 4096
-12-18 11:06:59.634 31479 31522 D ReactNative: Classifying image placeholder - byte
 12-18 11:07:04.974 31479 31522 D ReactNative: jpcnn_predict() value is 0.039335493.
 12-18 11:07:04.974 31479 31522 D ReactNative: jpcnn_classify_image() + predict() took 4.988 seconds.
-12-18 11:07:04.975 31479 31522 D ReactNative: predictionsLength = 4096
-12-18 11:07:05.263 31479  1586 D ReactNative: Classifying image placeholder - byte
 12-18 11:07:10.560 31479  1586 D ReactNative: jpcnn_predict() value is 0.7373725.
 12-18 11:07:10.561 31479  1586 D ReactNative: jpcnn_classify_image() + predict() took 4.888 seconds.
-12-18 11:07:10.561 31479  1586 D ReactNative: predictionsLength = 4096
-12-18 11:07:10.860 31479 31497 D ReactNative: Classifying image placeholder - byte
 12-18 11:07:15.750 31479 31497 D ReactNative: jpcnn_predict() value is 0.75858045.
 12-18 11:07:15.750 31479 31497 D ReactNative: jpcnn_classify_image() + predict() took 4.482 seconds.
-12-18 11:07:15.751 31479 31497 D ReactNative: predictionsLength = 4096
-12-18 11:07:16.053 31479   399 D ReactNative: Classifying image placeholder - byte
 12-18 11:07:20.879 31479   399 D ReactNative: jpcnn_predict() value is 0.78222394.
 12-18 11:07:20.879 31479   399 D ReactNative: jpcnn_classify_image() + predict() took 4.493 seconds.
-12-18 11:07:20.879 31479   399 D ReactNative: predictionsLength = 4096
-12-18 11:07:21.193 31479 31522 D ReactNative: Classifying image placeholder - byte
 12-18 11:07:25.807 31479 31522 D ReactNative: jpcnn_predict() value is 0.55595887.
 12-18 11:07:25.807 31479 31522 D ReactNative: jpcnn_classify_image() + predict() took 4.222 seconds.
-12-18 11:07:25.807 31479 31522 D ReactNative: predictionsLength = 4096
-12-18 11:07:26.078 31479  1586 D ReactNative: Classifying image placeholder - byte
 12-18 11:07:30.872 31479  1586 D ReactNative: jpcnn_predict() value is 0.1456414.
 12-18 11:07:30.872 31479  1586 D ReactNative: jpcnn_classify_image() + predict() took 4.449 seconds.
-12-18 11:07:30.872 31479  1586 D ReactNative: predictionsLength = 4096
-12-18 11:07:31.128 31479 31497 D ReactNative: Classifying image placeholder - byte
 12-18 11:07:35.610 31479 31497 D ReactNative: jpcnn_predict() value is 0.13940312.
 12-18 11:07:35.611 31479 31497 D ReactNative: jpcnn_classify_image() + predict() took 4.156 seconds.
-12-18 11:07:35.611 31479 31497 D ReactNative: predictionsLength = 4096
-12-18 11:07:35.895 31479   399 D ReactNative: Classifying image placeholder - byte
 ```
 
 
