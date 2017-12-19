@@ -16,7 +16,7 @@ I give someone the object, and indicate in the app that I have gifted it. They d
 
 ## Scope: What needs to be done?
 
-These items are to be gifted. And the phone is to be used to facilitate the gifting. And to develop a clean ML driven gifting flow, we're going to need two phones that are interacting with our VoltAGE targets. With what we've done so far, I could go out and grab another iPhone, or resucitate one of my old ones. Or I could rebuild everything we just did for iOS, for Android, and use my second phone which is a Nexus 6p.
+These items are to be gifted. And the phone is to be used to facilitate the gifting. And to develop a clean ML driven gifting flow, we're going to need two phones that are interacting with our VoltAGE targets. With what we've done so far, I could go out and grab another iPhone, or resucitate one of my old ones. Or I could rebuild everything we just did for iOS, for Android, and use my second phone which is a Nexus 6p, and in-so doing enable VoltAGE for Android users.
 
 What's involved here:
 
@@ -26,9 +26,23 @@ The implementation is going to be an Android activity, which is the android clas
 
 Also since we're calling C from java, we're going to be adding two dependencies to our Android java project: `libjnidispatch.so` and `libjpcnn.so`.
 
-There also presumably exists some quirks in how resource and asset file paths work when bundling our files. Our ML tool depends on a network file that holds the trained version of our convolutional neural net. We also have two predictor .txt files as well that have been trained on our VoltAGE targets. There exists a need for what to me seems like excessive copying of resources. This would also be a good place for later refactor/optimization, but we'll leave it as is for now.
+There also exist some quirks in how resource and asset file paths work when bundling our files. Our ML tool depends on a network file that holds the trained version of our convolutional neural net. We also have two predictor .txt files as well that have been trained on our VoltAGE targets. There exists a need for what to me seems like excessive copying of resources. This would also be a good place for later refactor/optimization, but we'll leave it as is for now.
+
+We're going to set those ideas aside, and just focus on getting up and running on Android. 
+
+### Brief Note
+This is going to be a longer post(or series of posts) in that what was covered for iOS in 5-6 smaller chunks is going to get a faster and looser treatment here. Additionally, the Android side of react-native-camera is factored into more classes, and things appear to be a bit more verbose on the Java side. All this is to say, if you're reading this closely to follow along in technical detail, you're more likely to be getting a quick gist of it all by scanning the code snippets in the posts. I'm going to throw in links to the actual commits to our fork of react-native-camera and VoltAGE, as a more enduring reference technical reference in context. Additionally, you can assume that I won't be linking any breaking commits 
 
 
+## Let's get to it
+Since we haven't touched the Android side of our application let's get it running with a fresh clone of VoltAGE. O
+
+```
+git clone https://github.com/nsipplswezey/VoltAGE.git
+cd VoltAGE/nextVoltAGE
+npm install
+react-native run-android
+```
 
 
 
