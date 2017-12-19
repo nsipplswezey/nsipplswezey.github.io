@@ -31,11 +31,11 @@ There also exist some quirks in how resource and asset file paths work when bund
 We're going to set those ideas aside, and just focus on getting up and running on Android. 
 
 ### Brief Note
-This is going to be a longer post(or series of posts) in that what was covered for iOS in 5-6 smaller chunks is going to get a faster and looser treatment here. Additionally, the Android side of react-native-camera is factored into more classes, and things appear to be a bit more verbose on the Java side. All this is to say, if you're reading this closely to follow along in technical detail, you're more likely to be getting a quick gist of it all by scanning the code snippets in the posts. I'm going to throw in links to the actual commits to our fork of react-native-camera and VoltAGE, as a more enduring reference technical reference in context. Additionally, you can assume that I won't be linking any breaking commits. Additionally, I think it's worth noting that these blog posts represent a cleaned up more linnear approach to building out these features, which emerged from a much more typical non-linnear discovery, coding and debugging process which has been smoothed out into a more linnear flow. 
+This is going to be a longer post(or series of posts) in that what was covered for iOS in 5-6 smaller chunks is going to get a faster and looser treatment here. Additionally, the Android side of react-native-camera is factored into more classes, and things appear to be a bit more verbose on the Java side. All this is to say, if you're reading this closely to follow along in technical detail, you're more likely to be getting a quick gist of it all by scanning the code snippets in the posts. I'm going to throw in links to the actual commits to our fork of react-native-camera and VoltAGE, as a more enduring reference technical reference in context. Additionally, you can assume that I won't be linking any breaking commits. Additionally, I think it's worth noting that these blog posts represent a cleaned up more linnear approach to building out these features, which emerged from a much more typical non-linnear discovery, coding and debugging process. 
 
 
 ## Let's get to it
-Since we haven't touched the Android side of our application, let's get it running with a fresh clone of VoltAGE. At this point in time, our most recent commit is https://github.com/nsipplswezey/VoltAGE/commit/2e7b2763bd5c3bb52fc90305c65b98e59b911ab6
+Since we haven't touched the Android side of our application, let's get it running with a fresh clone of VoltAGE. At this point in time, our project repository looks like https://github.com/nsipplswezey/VoltAGE/tree/2e7b2763bd5c3bb52fc90305c65b98e59b911ab6 and our fork of react-native-camera is https://github.com/nsipplswezey/react-native-camera/tree/ecd0a232e33108b1211d0dff5fe128a039db06d4. 
 
 ```
 git clone https://github.com/nsipplswezey/VoltAGE.git
@@ -44,7 +44,7 @@ npm install
 react-native run-android
 ```
 
-
+The first error we get is 
 
 
 ## Up And Running
