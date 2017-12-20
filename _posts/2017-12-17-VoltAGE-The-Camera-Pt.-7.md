@@ -284,13 +284,138 @@ And here's our log as proof that it worked with our "Initilized DeepBelief" from
 12-19 12:58:26.114 18672 18672 D RCTCamera: DeepBelief class tag DeepBelief
 ```
 
-## Next Steps: Copying Assets and Incorporating C libraries
+[VoltAGE commit-41](https://github.com/nsipplswezey/VoltAGE/commit/374700bdbc5685856c3fb82eab99a0abd0bfefe9) and [react-native-camera commit-445](https://github.com/nsipplswezey/react-native-camera/commit/64212b74e3d814de24136522c120a76f7a120212) represent the working state of VoltAGE up to this point.
 
-This might also be a natural pause or conclusion point. We extended our DeepBelief class into an activity, created a placeholder method for initialization, and then programatically started our activity at what seems like a reasonable place in the existing react-native-camera codebase, and added our activity to the VoltAGE AndroidManifest, and everything works!
+## Next Steps: Assets and C libraries
 
-Let's press on.
+This might also be a natural pause or conclusion point. We extended our DeepBelief class into an activity, created a placeholder method for initialization, and then programatically started our activity at what seems like a reasonable location in the existing react-native-camera codebase, and added our activity to the VoltAGE AndroidManifest, and everything works!
+
+Let's keep going.
+
+The DeepBelief SDK highlights quirks in the Android implementation. Mostly that at the time the SDK was released, they needed to implement some workarounds with regards to copying files in Android. So they implemented two helper methods for copying assets. One is called `copyAssets` and the other is `copyFiles`. Let's add those methods to our DeepBelief class. We won't go into these in detail, but generally they're just helpers to read from one directory in our bundle, and write to another. I could take a deeper look into this to figure out a way to potentially improve it, or assess if it's even necessary, but that can also wait for some later date.
+
+```
+package com.lwansbrough.RCTCamera;
+
+import android.app.Activity;
+import android.content.res.AssetManager;
+import android.os.Bundle;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+/**
+ * Created by nsipplswezey on 12/19/17.
+ */
+
+public class DeepBelief extends Activity {
+    public static final String TAG = "DeepBelief";
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        initDeepBelief();
+    }
+
+    static void initDeepBelief() {
+
+        android.util.Log.d("DeepBelief", "Init deef belief");
+
+    }
+
+    private static boolean copyAsset(AssetManager assetManager,
+                                     String fromAssetPath, String toPath) {
+        InputStream in = null;
+        OutputStream out = null;
+        try {
+            in = assetManager.open(fromAssetPath);
+            new File(toPath).createNewFile();
+            out = new FileOutputStream(toPath);
+            copyFile(in, out);
+            in.close();
+            in = null;
+            out.flush();
+            out.close();
+            out = null;
+            return true;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private static void copyFile(InputStream in, OutputStream out) throws IOException {
+        byte[] buffer = new byte[1024];
+        int read;
+        while((read = in.read(buffer)) != -1){
+            out.write(buffer, 0, read);
+        }
+    }
 
 
+
+}
+
+```
+
+What matters more is how we use them. When we initialize DeepBelief, we have to copy our trained network, and for now, we also copy the .txt file that contains the parameters of the model we trained on our VoltAGE target. Then we need to pass the path of those files to our machine learning methods that can use them to classify frames from the front facing camera. Those files are `jetpac.ntwk` and `VoltAGE_2_predictor.txt`.
+
+The two machine learning methods in our library that we need to set up on initialization are `JPCNNLibrary.INSTANCE.jpcnn_create_network(networkFile);` and `predictorHandle = JPCNNLibrary.INSTANCE.jpcnn_load_predictor(predictorFile);`. Additionally we need to use pointers to retain a references to these two function calls, so we also define to empty pointers for that purpose `static Pointer networkHandle = null;` and `static Pointer predictorHandle = null;`
+
+Both of those methods exist in a pair of C libraries, `libjnidispatch.so` and `libjpcnn.so` which both need to be added to our fork of react-native-camera. Android studio helps with this, because external C libaries that interface with Android java applications need to be added to a specific directory called `jniLibs` and specifically into subdirectories called `armeabi` `armeabi-v7a` and `armeabi-x86` for what I understand to be different architectures of phones.
+
+In addition to these `libjnidispatch.so` and `libjpcnn.so` we also need to add the `deepbelief.jar` to our project. Finally, we also create a context `static Context ctx;` variable, which allows us to access the assets associated with the project with `AssetManager am = ctx.getAssets();`.
+
+To put all the pieces together so far, our `onCreate()` and `initDeepBelief()` method looks like the following:
+
+```
+import com.jetpac.deepbelief.DeepBelief.JPCNNLibrary;
+import com.sun.jna.Pointer;
+
+public class DeepBelief extends Activity {
+    public static final String TAG = "DeepBelief";
+
+    static Context ctx;
+    static Pointer networkHandle = null;
+    static Pointer predictorHandle = null;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ctx = this;
+
+        initDeepBelief();
+    }
+
+    static void initDeepBelief() {
+
+        android.util.Log.d("DeepBelief", "Init deef belief");
+
+
+        AssetManager am = ctx.getAssets();
+        String baseFileName = "jetpac.ntwk";
+        String dataDir = ctx.getFilesDir().getAbsolutePath();
+        String networkFile = dataDir + "/" + baseFileName;
+        copyAsset(am, baseFileName, networkFile);
+        android.util.Log.d("ReactNative", "networkFile: " + networkFile);
+        networkHandle = JPCNNLibrary.INSTANCE.jpcnn_create_network(networkFile);
+
+        //TODO: Load predictor and predict
+        //Use the same technique to set of the predictor
+        //Replace the classify image call with the predict call
+        String predictorFileName = "VoltAGE_2_predictor.txt";
+        String predictorFile = dataDir + "/" + predictorFileName;
+        copyAsset(am, predictorFileName, predictorFile);
+        predictorHandle = JPCNNLibrary.INSTANCE.jpcnn_load_predictor(predictorFile);
+
+    }
+```
+
+This is a good place to refer to the commits that highlight all these changes in a working form.
 
 
 
