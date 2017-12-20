@@ -621,6 +621,10 @@ class RCTCameraViewFinder extends TextureView implements TextureView.SurfaceText
 
 Now our expectation is to have a steady stream of prediction scores logging out of our Android version of VoltAGE!
 
+And here's our [final commit for now](https://github.com/nsipplswezey/react-native-camera/commit/30d5a982d05505a9a83d7ace4bd8704f117084b1) to our fork of react-native-camera!
+
+There are a couple additions needed from here. One is to load our models from out `fetch` in the ReactNativeJS layer. Another is to gracefully handle teardown and set-up when the app goes into background. Right now on both Android and iOS the detection is on by default, so we might want to set it as toggleable. And on Android and iOS we need to implement an event trigger for a positive detection, and figure out a smart algorithm for converting our prediction scores into a reliable UX. All of that are next steps. This should give us a solid technical foundation to get there.
+
 ## Finally Up And Running!
 
 At first glance it looks like everything is working great. Our classification and prediction step takes about 2 seconds on a modern Android device. That means in about 30 seconds, we can get predictions on whether the phone is looking at the training target! I've noticed this drift up to 3-4 seconds as the app continues running for a couple minutes. On the iOS side, performance is about 3-4x better, with a classification finishing in about 0.4-0.6 seconds. This is due to using an optimized linnear algebra library that Apple provides called Accelerate. Presumably similar improvements could be made by reworking some of the linnear algebra function calls in the DeepBelief source code with [Eigen](http://eigen.tuxfamily.org/index.php?title=Main_Page) but that's another optimization for later. This is good enough for now! See if you can notice in the log output below when it was that I put the VoltAGE target infront of the camera!
