@@ -415,33 +415,263 @@ public class DeepBelief extends Activity {
     }
 ```
 
-This is a good place to refer to the commits that highlight all these changes in a working form.
+This is a good place to refer to the [commit to react-native-camera that highlights all these changes and additions](https://github.com/nsipplswezey/react-native-camera/commit/620a3a77ca6d9f9177afa6ad9af406ef9443b494). You'll notice that there's an image called `lena.png` included in the commit, which is a traditional computer vision image target for testing.
 
+## Next Steps: Generating and Classifying Bitmaps
 
-
-## Up And Running
-
-There's room, it seems, for some optimization. Our classification and prediction step takes 4-5 seconds on a modern Android device. This could be improved with a Linnear Algebra library called [Eigen](http://eigen.tuxfamily.org/index.php?title=Main_Page) but that's another optimization for later.
+Our DeepBelief network operates on bitmaps. In essence we need to pass the relevant data including height, width, pixel count, bytesPerPixel, byteCount and a ByteBuffer of the image pixels a from the image we're classifying to a helper that creates an appropriate image buffer for our classifying method. So the java code here is just generating appropriate inputs, and then working with the outputs from `JPCNNLibrary.INSTANCE.jpcnn_create_image_buffer_from_uint8_dat`and `JPCNNLibrary.INSTANCE.jpcnn_predict`.  We also use pointers and variables by reference as arguments to `jpcnn_classify_image` which then point to results of the classification, and are passed as arguments to our `jpcnn_predict` call, which is the result we're looking for. You can see the DeepBeliefSDK docs for more info about [`jpcnn_classify_image`](https://github.com/jetpacapp/DeepBeliefSDK#jpcnn_classify_image) and [`jpcnn_predict`](https://github.com/jetpacapp/DeepBeliefSDK#jpcnn_predict) and their arguments. In general terms its image bitmap in, generate classifier inpputs from image, classify image, generate prediction value from classification and model, output value between 0-1 for how similar the input image is to the image that generated the prediction model. We also wrap this all in a simple start-stop speed test to see how long it takes for the operation to run on the device.
 
 ```
-12-18 11:06:54.452 31479 31497 D ReactNative: jpcnn_predict() value is 0.09783074.
-12-18 11:06:54.452 31479 31497 D ReactNative: jpcnn_classify_image() + predict() took 5.302 seconds.
-12-18 11:06:59.310 31479   399 D ReactNative: jpcnn_predict() value is 0.4637906.
-12-18 11:06:59.310 31479   399 D ReactNative: jpcnn_classify_image() + predict() took 4.183 seconds.
-12-18 11:07:04.974 31479 31522 D ReactNative: jpcnn_predict() value is 0.039335493.
-12-18 11:07:04.974 31479 31522 D ReactNative: jpcnn_classify_image() + predict() took 4.988 seconds.
-12-18 11:07:10.560 31479  1586 D ReactNative: jpcnn_predict() value is 0.7373725.
-12-18 11:07:10.561 31479  1586 D ReactNative: jpcnn_classify_image() + predict() took 4.888 seconds.
-12-18 11:07:15.750 31479 31497 D ReactNative: jpcnn_predict() value is 0.75858045.
-12-18 11:07:15.750 31479 31497 D ReactNative: jpcnn_classify_image() + predict() took 4.482 seconds.
-12-18 11:07:20.879 31479   399 D ReactNative: jpcnn_predict() value is 0.78222394.
-12-18 11:07:20.879 31479   399 D ReactNative: jpcnn_classify_image() + predict() took 4.493 seconds.
-12-18 11:07:25.807 31479 31522 D ReactNative: jpcnn_predict() value is 0.55595887.
-12-18 11:07:25.807 31479 31522 D ReactNative: jpcnn_classify_image() + predict() took 4.222 seconds.
-12-18 11:07:30.872 31479  1586 D ReactNative: jpcnn_predict() value is 0.1456414.
-12-18 11:07:30.872 31479  1586 D ReactNative: jpcnn_classify_image() + predict() took 4.449 seconds.
-12-18 11:07:35.610 31479 31497 D ReactNative: jpcnn_predict() value is 0.13940312.
-12-18 11:07:35.611 31479 31497 D ReactNative: jpcnn_classify_image() + predict() took 4.156 seconds.
+    public static void classifyBitmap(Bitmap bitmap) {
+        final int width = bitmap.getWidth();
+        final int height = bitmap.getHeight();
+        final int pixelCount = (width * height);
+        final int bytesPerPixel = 4;
+        final int byteCount = (pixelCount * bytesPerPixel);
+        ByteBuffer buffer = ByteBuffer.allocate(byteCount);
+        bitmap.copyPixelsToBuffer(buffer);
+        byte[] pixels = buffer.array();
+        Pointer imageHandle = JPCNNLibrary.INSTANCE.jpcnn_create_image_buffer_from_uint8_data(pixels, width, height, 4, (4 * width), 0, 1);
+
+        PointerByReference predictionsValuesRef = new PointerByReference();
+        IntByReference predictionsLengthRef = new IntByReference();
+        PointerByReference predictionsNamesRef = new PointerByReference();
+        IntByReference predictionsNamesLengthRef = new IntByReference();
+        long startT = System.currentTimeMillis();
+        JPCNNLibrary.INSTANCE.jpcnn_classify_image(
+                networkHandle,
+                imageHandle,
+                0,
+                -2,
+                predictionsValuesRef,
+                predictionsLengthRef,
+                predictionsNamesRef,
+                predictionsNamesLengthRef);
+
+        JPCNNLibrary.INSTANCE.jpcnn_destroy_image_buffer(imageHandle);
+
+        Pointer predictionsValuesPointer = predictionsValuesRef.getValue();
+        final int predictionsLength = predictionsLengthRef.getValue();
+        
+        //Start trained model prediction
+        float trainedPredictionValue = JPCNNLibrary.INSTANCE.jpcnn_predict(predictorHandle, predictionsValuesPointer, predictionsLength);
+        android.util.Log.d("ReactNative", "jpcnn_predict() value is " + trainedPredictionValue + ".");
+        //End trained model prediction
+
+        long stopT = System.currentTimeMillis();
+        float duration = (float) (stopT - startT) / 1000.0f;
+        android.util.Log.d("ReactNative", "jpcnn_classify_image() + predict() took " + duration + " seconds.");
+        android.util.Log.d("ReactNative", String.format("predictionsLength = %d", predictionsLength));
+    }
+```
+
+At this point, to prove that we're up and running, we're going to run our classifer and it's prediction method on Lena.png. To do that, we need a method to convert the Lena.png asset into a bitmap, and then pass it as an argument to an invocation of `classifyBitmap`. Our expectation is to see output of a value between 0-1 for some similar `Lena.png` is to our VoltAGE target. We'd expect that `Lena.png` won't score very well, because it's very different than our VoltAGE target.
+
+Here's our method for getting a bitmap from an asset, with some error handling. It's a common utility operation:
+
+```
+    public static Bitmap getBitmapFromAsset(AssetManager mgr, String path) {
+        InputStream is = null;
+        Bitmap bitmap = null;
+        try {
+            is = mgr.open(path);
+            bitmap = BitmapFactory.decodeStream(is);
+        } catch (final IOException e) {
+            bitmap = null;
+            android.util.Log.d("ReactNative", "error in creating bitmap from asset" + e.getMessage());
+            android.util.Log.d("ReactNative",  android.util.Log.getStackTraceString(e));
+
+        } finally {
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (IOException ignored) {
+
+                }
+            }
+        }
+        return bitmap;
+    }
+```    
+
+With all this in place we'll add the following to our `initDeepBelief` method...
+
+```
+        Bitmap lenaBitmap = getBitmapFromAsset(am,"lena.png");
+
+        if(lenaBitmap != null){
+            android.util.Log.d("ReactNative", "lena bitmap is not null");
+            classifyBitmap(lenaBitmap);
+        }
+```
+
+...and we'll give it a run and expect to see some logged output.
+
+And great news! Here's our logged output:
+
+```
+12-19 21:26:09.085  3773  3773 D DeepBelief: Init deep belief
+12-19 21:26:10.893  3773  3814 D RCTCameraModule: setCNNModel called
+12-19 21:26:13.207  3773  3773 D ReactNative: networkFile: /data/user/0/com.nextvoltage/files/jetpac.ntwk
+12-19 21:26:13.615  3773  3773 D ReactNative: lena bitmap is not null
+12-19 21:26:14.871  3773  3773 D ReactNative: jpcnn_predict() value is 0.09134697.
+12-19 21:26:14.871  3773  3773 D ReactNative: jpcnn_classify_image() + predict() took 1.226 seconds.
+12-19 21:26:14.871  3773  3773 D ReactNative: predictionsLength = 4096
+```
+
+With a `jpcnn_predict()` result value of 0.09134697(which is very low) this looks like we're in pretty good shape! `Lena.png` doesn't look much like our `VoltAGE` targets! And it looks like it took a little over a second.
+
+## Next Steps: Frames from the Camera and An Async Task
+
+This is our last section. We now need to run `classifyBitmap` on as many frames as we can, without slowing VoltAGE down to a grinding halt. `react-native-camera` already includes a smart approach to this in their barcode scanner. We can follow that pattern:
+
+```
+    public void onPreviewFrame(byte[] data, Camera camera) {
+    
+        if (RCTCamera.getInstance().isBarcodeScannerEnabled() && !RCTCameraViewFinder.barcodeScannerTaskLock) {
+            RCTCameraViewFinder.barcodeScannerTaskLock = true;
+            new ReaderAsyncTask(camera, data).execute();
+        }
+    }
+```
+
+The barcode reader checks if the scanner is enabled(which is determined in the ReactNativeJS layer) and checks whether the `barcodeScannerTaskLock` property is true. If the scanner is enabled, and the task isn't locked, we lock the task, so that we only process one frame at a time, and then we pass the relveant data to a new instance of `ReaderAsyncTask` and execute.
+
+Then what's `ReaderAsyncTask` look like? It's actually a bit more complicated than is useful. Essentially it just tries to read if there's a bardcode in the frame. Then it sets `RCTCameraViewFinder.barcodeScannerTaskLock = false;`, which frees us up to grab a new frame and check if it includes a barcode.
+
+We're essentially going to do the same, except we're going to invoke `RCTDeepBelief.classifyBitmap(bmp);` instead of whatever the barcode checker method is. Otherwise everything else is about the same.
+
+Here's our `CNNAsyncTask`:
+
+```
+    private class CNNAsyncTask extends AsyncTask<Void, Void, Void> {
+        private byte[] imageData;
+        private final Camera camera;
+
+        CNNAsyncTask(Camera camera, byte[] imageData) {
+            this.camera = camera;
+            this.imageData = imageData;
+        }
+
+        @Override
+        protected Void doInBackground(Void... ignored) {
+            if (isCancelled()) {
+                return null;
+            }
+
+            Size previewSize = camera.getParameters().getPreviewSize();
+            YuvImage yuvimage=new YuvImage(imageData, ImageFormat.NV21, previewSize.width, previewSize.height, null);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            yuvimage.compressToJpeg(new Rect(0, 0, previewSize.width, previewSize.height), 80, baos);
+            byte[] jdata = baos.toByteArray();
+            Bitmap bmp = BitmapFactory.decodeByteArray(jdata, 0, jdata.length);
+            android.util.Log.d("ReactNative", "Classifying image placeholder - byte");
+
+
+            try {
+                DeepBelief.classifyBitmap(bmp);
+            } catch (Exception e) {
+                // meh
+                android.util.Log.d("ReactNative", "Error classifying bitmap");
+                android.util.Log.d("ReactNative",  android.util.Log.getStackTraceString(e));
+
+            } finally {
+                RCTCameraViewFinder.CNNDetectorTaskLock = false;
+                return null;
+            }
+        }
+    }
+```
+
+With our own CNNDetectorTaskLock...
+
+And here's it's instantiation and execution in the `onPreviewFrame` method:
+
+```
+    public void onPreviewFrame(byte[] data, Camera camera) {
+
+        if (!RCTCameraViewFinder.CNNDetectorTaskLock){
+            RCTCameraViewFinder.CNNDetectorTaskLock = true;
+            new CNNAsyncTask(camera, data).execute();
+        }
+
+        if (RCTCamera.getInstance().isBarcodeScannerEnabled() && !RCTCameraViewFinder.barcodeScannerTaskLock) {
+            RCTCameraViewFinder.barcodeScannerTaskLock = true;
+            new ReaderAsyncTask(camera, data).execute();
+        }
+    }
+```
+
+
+We also need to add our definition of our TaskLock as a public static property of our RCTCameraFinder...
+
+```
+class RCTCameraViewFinder extends TextureView implements TextureView.SurfaceTextureListener, Camera.PreviewCallback {
+
+...
+
+    // CNN Setup
+    // concurrency lock for CNN detector to avoid flooding the runtime
+    public static volatile boolean CNNDetectorTaskLock = false;
+
+...
+
+}
+```
+
+Now our expectation is to have a steady stream of prediction scores logging out of our Android version of VoltAGE!
+
+## Finally Up And Running!
+
+At first glance it looks like everything is working great. Our classification and prediction step takes about 2 seconds on a modern Android device. That means in about 30 seconds, we can get predictions on whether the phone is looking at the training target! I've noticed this drift up to 3-4 seconds as the app continues running for a couple minutes. On the iOS side, performance is about 3-4x better, with a classification finishing in about 0.4-0.6 seconds. This is due to using an optimized linnear algebra library that Apple provides called Accelerate. Presumably similar improvements could be made by reworking some of the linnear algebra function calls in the DeepBelief source code with [Eigen](http://eigen.tuxfamily.org/index.php?title=Main_Page) but that's another optimization for later. This is good enough for now! See if you can notice in the log output below when it was that I put the VoltAGE target infront of the camera!
+
+```
+12-19 21:48:50.582  5568  5568 D DeepBelief: Init deep belief
+12-19 21:48:51.606  5568  5606 D RCTCameraModule: setCNNModel called
+12-19 21:48:52.623  5568  5568 D ReactNative: networkFile: /data/user/0/com.nextvoltage/files/jetpac.ntwk
+12-19 21:48:52.844  5568  5568 D ReactNative: lena bitmap is not null
+12-19 21:48:53.441  5568  5568 D ReactNative: jpcnn_predict() value is 0.09136026.
+12-19 21:48:53.441  5568  5568 D ReactNative: jpcnn_classify_image() + predict() took 0.586 seconds.
+12-19 21:48:56.056  5568  5589 D ReactNative: jpcnn_predict() value is 0.013354045.
+12-19 21:48:56.056  5568  5589 D ReactNative: jpcnn_classify_image() + predict() took 1.567 seconds.
+12-19 21:48:59.177  5568  5601 D ReactNative: jpcnn_predict() value is 0.009720933.
+12-19 21:48:59.177  5568  5601 D ReactNative: jpcnn_classify_image() + predict() took 2.499 seconds.
+12-19 21:49:02.272  5568  5614 D ReactNative: jpcnn_predict() value is 0.01081123.
+12-19 21:49:02.272  5568  5614 D ReactNative: jpcnn_classify_image() + predict() took 2.463 seconds.
+
+...
+
+12-19 21:50:33.407  5568  5585 D ReactNative: jpcnn_predict() value is 0.01094358.
+12-19 21:50:33.407  5568  5585 D ReactNative: jpcnn_classify_image() + predict() took 2.351 seconds.
+12-19 21:50:36.479  5568  5589 D ReactNative: jpcnn_predict() value is 0.010450518.
+12-19 21:50:36.479  5568  5589 D ReactNative: jpcnn_classify_image() + predict() took 2.417 seconds.
+12-19 21:50:39.600  5568  5601 D ReactNative: jpcnn_predict() value is 0.060899194.
+12-19 21:50:39.600  5568  5601 D ReactNative: jpcnn_classify_image() + predict() took 2.481 seconds.
+12-19 21:50:42.176  5568  5614 D ReactNative: jpcnn_predict() value is 0.04774032.
+12-19 21:50:42.176  5568  5614 D ReactNative: jpcnn_classify_image() + predict() took 2.028 seconds.
+12-19 21:50:44.625  5568  5585 D ReactNative: jpcnn_predict() value is 0.049463954.
+12-19 21:50:44.626  5568  5585 D ReactNative: jpcnn_classify_image() + predict() took 1.959 seconds.
+12-19 21:50:47.647  5568  5589 D ReactNative: jpcnn_predict() value is 0.009187927.
+12-19 21:50:47.647  5568  5589 D ReactNative: jpcnn_classify_image() + predict() took 2.462 seconds.
+12-19 21:50:50.331  5568  5601 D ReactNative: jpcnn_predict() value is 0.18211325.
+12-19 21:50:50.331  5568  5601 D ReactNative: jpcnn_classify_image() + predict() took 2.193 seconds.
+12-19 21:50:52.868  5568  5614 D ReactNative: jpcnn_predict() value is 0.039335493.
+12-19 21:50:52.868  5568  5614 D ReactNative: jpcnn_classify_image() + predict() took 2.03 seconds.
+12-19 21:50:55.237  5568  5585 D ReactNative: jpcnn_predict() value is 0.831542.
+12-19 21:50:55.237  5568  5585 D ReactNative: jpcnn_classify_image() + predict() took 1.939 seconds.
+12-19 21:50:57.641  5568  5589 D ReactNative: jpcnn_predict() value is 0.8141885.
+12-19 21:50:57.641  5568  5589 D ReactNative: jpcnn_classify_image() + predict() took 1.985 seconds.
+12-19 21:51:00.292  5568  5601 D ReactNative: jpcnn_predict() value is 0.73880213.
+12-19 21:51:00.292  5568  5601 D ReactNative: jpcnn_classify_image() + predict() took 2.181 seconds.
+12-19 21:51:02.813  5568  5614 D ReactNative: jpcnn_predict() value is 0.7692477.
+12-19 21:51:02.813  5568  5614 D ReactNative: jpcnn_classify_image() + predict() took 2.073 seconds.
+12-19 21:51:05.167  5568  5585 D ReactNative: jpcnn_predict() value is 0.7586093.
+12-19 21:51:05.167  5568  5585 D ReactNative: jpcnn_classify_image() + predict() took 1.93 seconds.
+12-19 21:51:07.415  5568  5589 D ReactNative: jpcnn_predict() value is 0.817426.
+12-19 21:51:07.415  5568  5589 D ReactNative: jpcnn_classify_image() + predict() took 1.772 seconds.
+12-19 21:51:10.069  5568  5601 D ReactNative: jpcnn_predict() value is 0.0034205674.
+12-19 21:51:10.069  5568  5601 D ReactNative: jpcnn_classify_image() + predict() took 2.167 seconds.
+
 ```
 
 
