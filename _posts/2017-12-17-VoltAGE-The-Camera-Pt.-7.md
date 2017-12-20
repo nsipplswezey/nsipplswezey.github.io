@@ -500,7 +500,7 @@ With all this in place we'll add the following to our `initDeepBelief` method...
         Bitmap lenaBitmap = getBitmapFromAsset(am,"lena.png");
 
         if(lenaBitmap != null){
-            android.util.Log.d("ReactNative", "lena bitmap is not null");
+            android.util.Log.d("ReactNative", "Classifying lena.png");
             classifyBitmap(lenaBitmap);
         }
 ```
@@ -633,7 +633,7 @@ At first glance it looks like everything is working great. Our classification an
 12-19 21:48:50.582  5568  5568 D DeepBelief: Init deep belief
 12-19 21:48:51.606  5568  5606 D RCTCameraModule: setCNNModel called
 12-19 21:48:52.623  5568  5568 D ReactNative: networkFile: /data/user/0/com.nextvoltage/files/jetpac.ntwk
-12-19 21:48:52.844  5568  5568 D ReactNative: lena bitmap is not null
+12-19 21:48:52.844  5568  5568 D ReactNative: Classifying lena.png
 12-19 21:48:53.441  5568  5568 D ReactNative: jpcnn_predict() value is 0.09136026.
 12-19 21:48:53.441  5568  5568 D ReactNative: jpcnn_classify_image() + predict() took 0.586 seconds.
 12-19 21:48:56.056  5568  5589 D ReactNative: jpcnn_predict() value is 0.013354045.
