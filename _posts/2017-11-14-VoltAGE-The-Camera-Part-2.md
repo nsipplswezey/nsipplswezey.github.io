@@ -142,6 +142,9 @@ And here's a nice console log dump from Xcode, showing that our round trip works
 2017-11-14 11:43:19.585 [info][tid:com.facebook.react.JavaScript] positive CNN classification
 ```
 
+## Previous Post: [The Camera](https://nsipplswezey.github.io/2017/11/13/VoltAGE-The-Camera.html) 
+## Next Post: [The Camera Part 3](https://nsipplswezey.github.io/2017/11/15/VoltAGE-The-Camera-Part-3.html)
+
 ## **Thanks** 
 Brian Cline [@standardhuman](https://github.com/standardhuman) and Lawrence Stiers [@tandcsurf](https://github.com/tandcsurf) for comments and feedback on this post.
 
