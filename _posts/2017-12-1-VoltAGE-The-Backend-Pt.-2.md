@@ -124,3 +124,5 @@ We can also continue developing a workflow for steadily and more rapidly adding 
     ]
 }
 ```
+
+## Previous Post: [The Camera](https://nsipplswezey.github.io/2017/11/13/VoltAGE-The-Camera.html) Next Post: [The Camera Part 3](https://nsipplswezey.github.io/2017/11/14/VoltAGE-The-Camera-Part-3.html)
