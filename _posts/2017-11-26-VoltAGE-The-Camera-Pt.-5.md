@@ -371,6 +371,8 @@ SV
 2017-11-27 16:25:59.486433-0800 camera[7700:4721890] Finalizing CVPixelBuffer 0x1c4137ac0 while lock count is 1.
 ```
 
+## Previous Post: [The Camera Part 4](https://nsipplswezey.github.io/2017/11/20/VoltAGE-The-Camera-Pt.-4.html) 
+## Next Post: [The Camera Part 6](https://nsipplswezey.github.io/2017/11/30/VoltAGE-The-Camera-Pt.-6.html)
 
 ## **Thanks** 
 Lawrence Stiers [@tandcsurf](https://github.com/tandcsurf) for comments and feedback on this post.
