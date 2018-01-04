@@ -538,7 +538,8 @@ SV
 2017-11-30 22:07:13.522851-0800 nextVoltAGE[1202:1174396] 0.07840245217084885
 ```
 
-
+## Previous Post: [The Camera Part 5](https://nsipplswezey.github.io/2017/11/26/VoltAGE-The-Camera-Pt.-5.html) 
+## Next Post: [The Camera Part 7](https://nsipplswezey.github.io/2017/12/17/VoltAGE-The-Camera-Pt.-7.html)
 
 
 
