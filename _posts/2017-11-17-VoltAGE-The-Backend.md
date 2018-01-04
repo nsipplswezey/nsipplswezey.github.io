@@ -43,5 +43,7 @@ Now that I'm up and running with both, I can build the client against either, an
 
 My initial hunch has been that the static file hosting will be better, because the native iOS layer of VoltAGE expects a .txt file. Having said that, it's likely that the supported data type for passing data from our react layer, which will have done the fetching of our predictor model, is just a string anyway. And that we'll have to use an obj-C class to convert that string into a .txt for importing into our CNN. We'll certainly be able to find out now.
 
+## Next Post: [The Backend Part 2](https://nsipplswezey.github.io/2017/12/01/VoltAGE-The-Backend-Pt.-2.html) 
+
 ## **Thanks** 
 Brian Cline [@standardhuman](https://github.com/standardhuman) and Lawrence Stiers [@tandcsurf](https://github.com/tandcsurf) for comments and feedback on this post.
