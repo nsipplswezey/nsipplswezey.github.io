@@ -678,6 +678,6 @@ At first glance it looks like everything is working great. Our classification an
 
 ```
 
-
+## Previous Post: [The Camera Part 6](https://nsipplswezey.github.io/2017/11/30/VoltAGE-The-Camera-Pt.-6.html) 
 
 
