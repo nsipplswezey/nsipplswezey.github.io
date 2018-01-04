@@ -97,5 +97,7 @@ Looks like we've got the CNN up and running! Next up we integrate the CNN into t
 
 ![voltage2](https://user-images.githubusercontent.com/7946707/32752258-5eda001a-c87d-11e7-99d8-d4698613221f.gif)
 
+## Next Post: [The Camera Part 2](https://nsipplswezey.github.io/2017/11/14/VoltAGE-The-Camera-Part-2.html)
+
 ## **Thanks** 
 Brian Cline [@standardhuman](https://github.com/standardhuman) and Lawrence Stiers [@tandcsurf](https://github.com/tandcsurf) for comments and feedback on this post.
