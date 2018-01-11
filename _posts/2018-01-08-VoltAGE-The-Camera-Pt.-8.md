@@ -16,7 +16,7 @@ I give someone the object, and indicate in the app that I have gifted it. They d
 
 ## Scope: What needs to be done?
 
-In the last post, we built out the Android version of our image detector which processes frames from the front facing camera. It's about 4-5x slower than iOS, but it's workable, processing an classifying a frame ever 2-3 seconds.
+In our previoues post [The Camera Part 7](https://nsipplswezey.github.io/2017/12/17/VoltAGE-The-Camera-Pt.-7.html), we built out the Android version of our image detector which processes frames from the front facing camera. It's about 4-5x slower than iOS, but it's workable, processing an classifying a frame ever 2-3 seconds.
 
 The iOS side is still jsut a touch ahead of the Android side in one way. The prediction model on iOS is fetched from the server. We want to make sure the same is true for our Android react-native component.
 
