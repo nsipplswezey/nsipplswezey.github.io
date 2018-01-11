@@ -16,7 +16,9 @@ I give someone the object, and indicate in the app that I have gifted it. They d
 
 ## Scope: What needs to be done?
 
-We now have detection on both Android and iOS. The iOS side is still jsut a touch ahead of the Android side in one way. The prediction model on iOS is fetched from the server. We want to make sure the same is true for our Android react-native component.
+In the last post, we built out the Android version of our image detector which processes frames from the front facing camera. It's about 4-5x slower than iOS, but it's workable, processing an classifying a frame ever 2-3 seconds.
+
+The iOS side is still jsut a touch ahead of the Android side in one way. The prediction model on iOS is fetched from the server. We want to make sure the same is true for our Android react-native component.
 
 We already have a component method that accepts the model string fetched from the server and makes it available in the Android version of our camera module.
 
@@ -140,6 +142,7 @@ Check out the [commit](https://github.com/nsipplswezey/react-native-camera/commi
 
 [https://developer.android.com/training/data-storage/files.html](https://developer.android.com/training/data-storage/files.html)
 
-
+## **Thanks** 
+Lawrence Stiers [@tandcsurf](https://github.com/tandcsurf) for comments and feedback on this post.
 
 
