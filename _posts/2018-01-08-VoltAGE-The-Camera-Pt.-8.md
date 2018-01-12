@@ -143,6 +143,6 @@ Check out the [commit](https://github.com/nsipplswezey/react-native-camera/commi
 [https://developer.android.com/training/data-storage/files.html](https://developer.android.com/training/data-storage/files.html)
 
 ## **Thanks** 
-Lawrence Stiers [@tandcsurf](https://github.com/tandcsurf) for comments and feedback on this post.
+Lawrence Stiers [@tandcsurf](https://github.com/tandcsurf) and [@christopher-hague](https://github.com/christopher-hague) for comments and feedback on this post.
 
 
