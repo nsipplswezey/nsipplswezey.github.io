@@ -3,6 +3,8 @@ layout: post
 title: VoltAGE The Camera Pt. 8
 ---
 
+## Previous Post: [The Camera Part 7](https://nsipplswezey.github.io/2017/12/17/VoltAGE-The-Camera-Pt.-7.html) 
+
 ## Goal?
 VoltAGE is a react-native app that uses a client-side-optimized convolutional-neural-net(CNN) to detect, and generate specific model parameters for detecting specific target physical objects using the front facing camera. 
 
@@ -135,8 +137,6 @@ At the end of this method, is an invocation of a `DeepBelief.setPredictor` metho
 Currently this seems to work. Though it looks like there's an occasional crash on first load from the bundle. Which leaves me considering whether there's potentially some useful error handling to be done around waiting for the model to be fetched from the server. We'll tackle that next.
 
 Check out the [commit](https://github.com/nsipplswezey/react-native-camera/commit/30c01f797f460a20d762ba83c5d03bc2b7f2e2f8) to the fork of `react-native-camera` with these changes!
-
-## Previous Post: [The Camera Part 7](https://nsipplswezey.github.io/2017/12/17/VoltAGE-The-Camera-Pt.-7.html) 
 
 ## Reference Links
 
