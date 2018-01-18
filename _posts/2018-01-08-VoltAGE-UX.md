@@ -59,9 +59,111 @@ Of those task items, the click is a nuance change, using fewer screens is a redu
 
 While we're at it, we want a solution that works both of Android and iOS. And right now our UI doesn't work for Android. Because our implementation is based on extending an activity, which at the time was the simplest thing to do, but now up further investigation, interupts the main app activity.
 
-So we need to quick refactor a la this commit: [https://github.com/nsipplswezey/react-native-camera/commit/9d357fbc6c920d57dee0a415f2d727712e4fbc18](https://github.com/nsipplswezey/react-native-camera/commit/9d357fbc6c920d57dee0a415f2d727712e4fbc18)
+So we need to quick refactor. Previous we had our `DeepBelief` class extending the Android `Activity` class. This was because our base code example was built as an `Acitivity` and we were able to get our app context from an `Activity` method for fetching and copying CNN model and network files. This approach breaks our Android app, because it interrupts the ract-native main activity. It turns out react-native provides it's own app context, which our camera exposes in a method called `RCTCameraModule.getReactContextSingleton();` which we can use for our file copying needs.
 
-While trouble shooting that issue, we also made a bunch of potentially necessary changes around animation for Android. See here: [https://github.com/nsipplswezey/VoltAGE/commit/cbff06e28437b3721f8d18f01377590ed455d7c3](https://github.com/nsipplswezey/VoltAGE/commit/cbff06e28437b3721f8d18f01377590ed455d7c3)
+Previously we used `Activity` `onCreate` event handler to assign our app context to the `ctx` variable before initializing our `DeepBelief` classifier.
+
+```
+     @Override
+     public void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+         ctx = this;
+    
+         initDeepBelief();
+     }
+ ```
+ 
+ We can get rid of this whole method, and just assign `ctx` to the result of `RCTCameraModule.getReactContextSingleton();` in `initDeepBelief` and do all our file copying.
+ 
+ ```
+     static void initDeepBelief() {
+
+        android.util.Log.d("DeepBelief", "Init deep belief");
+
+        ReactContext reactContext = RCTCameraModule.getReactContextSingleton();
+        ctx = reactContext;
+
+        AssetManager am = ctx.getAssets();
+        String baseFileName = "jetpac.ntwk";
+        String dataDir = ctx.getFilesDir().getAbsolutePath();
+        String networkFile = dataDir + "/" + baseFileName;
+        copyAsset(am, baseFileName, networkFile);
+ ```
+
+Check out the commit here: [https://github.com/nsipplswezey/react-native-camera/commit/9d357fbc6c920d57dee0a415f2d727712e4fbc18](https://github.com/nsipplswezey/react-native-camera/commit/9d357fbc6c920d57dee0a415f2d727712e4fbc18)
+
+That's enough to get our Animation working on Android.
+
+Additionally, I also made changs to our `TargetOverlay` component which holds our boncing VoltAGE target call to action as in the gif above.
+
+There's a series of relevant quirks here, and it's unclear if work-arounds are necessary for all of them. What I do know is that it works as it is currently, and I left my self comments for where the guidance around the fixes came from, which I'll deal with later, probably while referencing this blog post.
+
+The quirks are as follows:
+
+1. On Android the `backgroundColor` style property for an `Animated.Image` needs to be transparent.
+
+2. Using native drivers seems to work better, so the `useNativeDriver` prop for our `Animated.Image` component should be set to `true`.
+
+3. If modifying the `transform` style property, which we are to create that bouncing effect, the `perspective` style property of our `transform` should be set to 1000.
+
+4. Additionally, initial values of `0` for animated properties can cause issue, so starting at `0.01` is ideal.
+
+5. Finally, to loop our animation infinitely, we previously were chaining our animation as a callback to be run after each animation cycle finished. We've refactored that to use the Animated APIs `.loop` method.
+
+Here's what the component looks like now, with a couple extraneous bits for handling new CNN detetion values, and waking from background state, commented out for now:
+
+```
+export default class TargetOverlay extends Component{
+  constructor(props: any){
+    super(props);
+    this.state = {
+      bounceValue: new Animated.Value(1.5), //https://stackoverflow.com/questions/47278781/react-native-animation-not-working-properly-on-android
+      wiggleValue: new Animated.Value(0.01), //https://stackoverflow.com/questions/47278781/react-native-animation-not-working-properly-on-android
+      bouncing: false,
+    };
+  }
+
+  render(){
+    console.log('using native driver')
+    return(
+	    <Animated.Image
+	      source={require('../Assets/Target.png')}
+        useNativeDriver= {true}
+	      style={
+	        {flex: 0,
+		       width: 500,
+		       height: 500,
+           backgroundColor: "transparent", //https://github.com/facebook/react-native/issues/13550
+		       transform: [
+		         {scale: this.state.bounceValue},
+             {perspective: 1000}, //https://facebook.github.io/react-native/docs/animations.html#bear-in-mind
+		       ]}
+	      }
+	      resizeMode={'contain'}/>
+    )}
+
+  componentDidMount() {
+    //this._bounce();
+
+    Animated.loop(
+      Animated.spring(
+        this.state.bounceValue,
+        {
+          toValue: 0.8,
+  	      friction: 1,
+        }
+      )).start();
+
+    //AppState.addEventListener('change',this._handleIOSstateChange.bind(this));
+    //NativeAppEventEmitter.addListener('CameraCNNUpdate', this._handleCNNUpdate.bind(this));
+  }
+  
+  ...
+```
+
+
+
+See here: [https://github.com/nsipplswezey/VoltAGE/commit/cbff06e28437b3721f8d18f01377590ed455d7c3](https://github.com/nsipplswezey/VoltAGE/commit/cbff06e28437b3721f8d18f01377590ed455d7c3)
 
 ### Up and Running
 
