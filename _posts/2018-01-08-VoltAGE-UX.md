@@ -59,9 +59,9 @@ Of those task items, the click is a nuance change, using fewer screens is a redu
 
 While we're at it, we want a solution that works both of Android and iOS. And right now our UI doesn't work for Android. Because our implementation is based on extending an activity, which at the time was the simplest thing to do, but now up further investigation, interupts the main app activity.
 
-So we need to quick refactor a la this commit: https://github.com/nsipplswezey/react-native-camera/commit/9d357fbc6c920d57dee0a415f2d727712e4fbc18
+So we need to quick refactor a la this commit: [https://github.com/nsipplswezey/react-native-camera/commit/9d357fbc6c920d57dee0a415f2d727712e4fbc18](https://github.com/nsipplswezey/react-native-camera/commit/9d357fbc6c920d57dee0a415f2d727712e4fbc18)
 
-While trouble shooting that issue, we also made a bunch of potentially necessary changes around animation for Android. See here: https://github.com/nsipplswezey/VoltAGE/commit/cbff06e28437b3721f8d18f01377590ed455d7c3
+While trouble shooting that issue, we also made a bunch of potentially necessary changes around animation for Android. See here: [https://github.com/nsipplswezey/VoltAGE/commit/cbff06e28437b3721f8d18f01377590ed455d7c3](https://github.com/nsipplswezey/VoltAGE/commit/cbff06e28437b3721f8d18f01377590ed455d7c3)
 
 ### Up and Running
 
