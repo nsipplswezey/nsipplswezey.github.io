@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Digging Into Blockstack
+published: false
 ---
 
 ## Goal?
