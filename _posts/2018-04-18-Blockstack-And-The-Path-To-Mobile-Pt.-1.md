@@ -14,7 +14,7 @@ Needless to say that’s a lot more work than the challenge warrants.
 But I wanted to get started on that problem, because it’s the problem that I can’t disprove in my experience so far.
 
 Most human beings on the planet don’t have computers, and increasingly may never own a desktop or laptop computer. 
-Every has a phone.
+Every one has a phone.
 So to get to a world where signup might be so easy that they might somehow be able to easily accidentally sign up for block stack, a user needs to use Blockstack without having a desktop/laptop computer.
 
 The first step towards that world is that specifically the signup flow needs to work on a phone. Not authentication, or sign in. But Signup.
