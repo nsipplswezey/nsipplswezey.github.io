@@ -8,7 +8,7 @@ title: Blockstack And The Path To Mobile Pt. 1
 Blockstack registration needs to be easier, simpler and less distracting. The developer authentication and storage flow are downstream problems from signup… so let’s see how signup could be made easier.
 
 The user story I’d like to see fulfilled:
-“As a user, signup might be so easy, that they might be able to accidentally sign up for Blockstack”
+“As a user, signup might be so easy, that a user might be able to accidentally sign up for Blockstack”
 
 Needless to say that’s a lot more work than the challenge warrants. 
 But I wanted to get started on that problem, because it’s the problem that I can’t disprove in my experience so far.
