@@ -1,9 +1,7 @@
 ---
 layout: post
-title: Blockstack And The Path To Mobile Pt. 1.md
+title: Blockstack And The Path To Mobile Pt. 1
 ---
-
-## Previous Post: [The Camera Part 7](https://nsipplswezey.github.io/2017/12/17/VoltAGE-The-Camera-Pt.-7.html) 
 
 ## Goal
 
