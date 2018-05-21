@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Blockstack And The Path To Mobile Pt. 2
+published: false
 ---
 
 ## Goal
